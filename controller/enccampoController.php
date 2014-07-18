@@ -70,6 +70,7 @@ class enccampoController extends baseController {
            $sql = "SELECT
                 tab_encuesta.enc_id,
                 tab_enccampo.ecp_id,
+                tab_encgrupo.egr_codigo,
                 tab_encgrupo.egr_nombre,
                 tab_enccampo.ecp_orden,
                 tab_enccampo.ecp_nombre,
@@ -112,7 +113,7 @@ class enccampoController extends baseController {
             $json .= "\n{";
             $json .= "id:'" . $un->ecp_id . "',";
             $json .= "cell:['" . $un->ecp_id . "'";
-            $json .= ",'" . addslashes($un->egr_nombre) . "'";
+            $json .= ",'" . addslashes($un->egr_codigo) . "'";
             $json .= ",'" . addslashes($un->ecp_orden) . "'";
             $json .= ",'" . addslashes($un->ecp_nombre) . "'";
             $json .= ",'" . addslashes($un->ecp_eti) . "'";

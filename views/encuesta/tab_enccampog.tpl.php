@@ -15,11 +15,11 @@
                 dataType: 'json',
                 colModel: [
                     {display: 'Id', name: 'ecp_id', width: GetColumnSize(5), sortable: true, align: 'center'},
-                    {display: 'Grupo', name: 'egr_nombre', width: GetColumnSize(10), sortable: true, align: 'left'},
+                    {display: 'Grupo', name: 'egr_codigo', width: GetColumnSize(5), sortable: true, align: 'left'},
                     {display: 'Orden', name: 'ecp_orden', width: GetColumnSize(5), sortable: true, align: 'left'},
-                    {display: 'Nombre', name: 'ecp_nombre', width: GetColumnSize(8), sortable: true, align: 'left'},
-                    {display: 'Etiqueta', name: 'ecp_eti', width: GetColumnSize(60), sortable: true, align: 'left'},
-                    {display: 'Tipo dato', name: 'ecp_tipdat', width: GetColumnSize(10), sortable: true, align: 'left'},
+                    {display: 'Codigo', name: 'ecp_nombre', width: GetColumnSize(8), sortable: true, align: 'left'},
+                    {display: 'Pregunta', name: 'ecp_eti', width: GetColumnSize(60), sortable: true, align: 'left'},
+                    {display: 'Tipo dato', name: 'ecp_tipdat', width: GetColumnSize(15), sortable: true, align: 'left'},
                 ],
                 buttons: [
                     {name: 'Adicionar', bclass: 'add', onpress: test},
