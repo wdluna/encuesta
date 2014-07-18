@@ -257,11 +257,11 @@ class usuarioController Extends baseController {
             // Subject email
             
             if ($_REQUEST['usu_rol_id'] == 1){
-                $mail->Subject = 'Creacion de cuenta para administrar el Sistema de Encuestas - DGGE : ';
+                $mail->Subject = 'Creacion de cuenta para administrar el Sistema de Encuestas de la DGGE - Ministerio de Planificación del Desarrollo';
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
-                $mail->MsgHTML("<b>Estimado " . $nombre .":</b>"
-                        . "<br><br>Se creo una cuenta de Administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
+                $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
+                        . "<br><br>Se creo una cuenta de administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
                         . "<br>La direccion para administrar el sistema es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
@@ -270,11 +270,11 @@ class usuarioController Extends baseController {
                         . "<br><br>Gracias!");
                 
             }else{
-                $mail->Subject = 'Creacion de cuenta para llenar la: ' . $nombreEncuesta . " de la DGGE";
+                $mail->Subject = 'Creacion de cuenta para llenar la ' . $nombreEncuesta . " de la DGGE - Ministerio de Planificación del Desarrollo";
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
-                $mail->MsgHTML("<b>Estimado " . $nombre .":</b>"
-                        . "<br><br>Se creo una cuenta de Usuario para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
+                $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
+                        . "<br><br>Se creo una cuenta de usuario para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
                         . "<br>La direccion para el llenado de la encuesta es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
@@ -486,11 +486,11 @@ class usuarioController Extends baseController {
             // Subject email
             
             if ($row->rol_id == 1){
-                $mail->Subject = 'Creacion de cuenta de correo para administrar el Sistema de Encuestas - DGGE : ';
+                $mail->Subject = 'Creacion de cuenta de correo para administrar el Sistema de Encuestas de la DGGE - Ministerio de Planificación del Desarrollo';
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
-                $mail->MsgHTML("<b>Estimado " . $nombre .":</b>"
-                        . "<br><br>Se creo una cuenta de Administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
+                $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
+                        . "<br><br>Se creo una cuenta de administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
                         . "<br>La direccion para administrar el sistema es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
@@ -499,11 +499,11 @@ class usuarioController Extends baseController {
                         . "<br><br>Gracias por su colaboracion !");
                 
             }else{
-                $mail->Subject = 'Creacion de cuenta de correo para llenar la: ' . $nombreEncuesta . " de la DGGE";
+                $mail->Subject = 'Creacion de cuenta de correo para llenar la ' . $nombreEncuesta . " de la DGGE - Ministerio de Planificación del Desarrollo";
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
-                $mail->MsgHTML("<b>Estimado " . $nombre .":</b>"
-                        . "<br><br>Se creo una cuenta de Usuario para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
+                $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
+                        . "<br><br>Se creo una cuenta de usuario para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
                         . "<br>La direccion para el llenado de la encuesta es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 

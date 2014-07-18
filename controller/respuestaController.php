@@ -41,7 +41,7 @@ class respuestaController Extends baseController {
         $this->menu = new menu();
         $this->liMenu = $this->menu->imprimirMenu(VAR1, $_SESSION['USU_ID']);
         $this->registry->template->men_titulo = $this->liMenu;
-        $this->registry->template->show('header');
+        $this->registry->template->show('headerG');
         $this->registry->template->show('respuesta/tab_respuestag.tpl');
         $this->registry->template->show('footer');
     }
@@ -106,7 +106,9 @@ class respuestaController Extends baseController {
                 s.enc_id,
                 s.enc_par,
                 s.enc_codigo,
-                s.enc_categoria
+                s.enc_categoria,
+                s.enc_fecpub,
+                s.enc_feccie
                 FROM
                 tab_encuesta AS s
                 INNER JOIN tab_unidad ON tab_unidad.uni_id = s.uni_id
@@ -149,6 +151,8 @@ class respuestaController Extends baseController {
             $json .= ",'" . addslashes($un->enc_codigo) . "'";
             $json .= ",'" . addslashes($un->uni_descripcion) . "'";
             $json .= ",'" . addslashes($un->enc_categoria) . "'";
+            $json .= ",'" . addslashes($un->enc_fecpub) . "'";
+            $json .= ",'" . addslashes($un->enc_feccie) . "'";
             $json .= "]}";
             $rc = true;
             $i++;
@@ -219,6 +223,8 @@ class respuestaController Extends baseController {
         tab_encuesta.enc_par,
         tab_encuesta.enc_codigo,
         tab_encuesta.enc_categoria,
+        tab_encuesta.enc_fecpub,
+        tab_encuesta.enc_feccie,
         tab_respuesta.res_codigo,
         tab_respuesta.res_titulo,
         CASE WHEN tab_respuesta.res_estado=1 THEN 'ABIERTA' ELSE 'CERRADA' END as res_estado,
@@ -273,7 +279,9 @@ class respuestaController Extends baseController {
             $json .= "cell:['" . $un->res_id . "'";            
             $json .= ",'" . addslashes($un->res_codigo) . "'";
             $json .= ",'" . addslashes($un->uni_descripcion) . "'";
-            $json .= ",'" . addslashes($un->enc_categoria) . "'";      
+            $json .= ",'" . addslashes($un->enc_categoria) . "'";  
+            $json .= ",'" . addslashes($un->enc_fecpub) . "'";
+            $json .= ",'" . addslashes($un->enc_feccie) . "'";
             $json .= ",'" . addslashes($un->res_estado) . "'";
             $json .= ",'" . addslashes($un->usu_nombres . ' ' . $un->usu_apellidos) . "'";
             $json .= "]}";

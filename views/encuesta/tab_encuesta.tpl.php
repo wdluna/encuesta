@@ -59,7 +59,7 @@
         </tr>
 
         <tr>
-            <td>Nombre de la Serie o Subencie:</td>
+            <td>Nombre de la Encuesta:</td>
             <td colspan="3"><input name="enc_categoria" type="text"
                                    id="enc_categoria" value="<?php echo $enc_categoria; ?>" size="100"
                                    autocomplete="off" class="required alphanum" maxlength="256"
@@ -70,7 +70,25 @@
         </tr>
 
 
+        <tr>                
+            <td>Fecha de publicaci&oacute;n: </td>
+            <td colspan="3">                     
+                <input name="enc_fecpub" type="text"
+                        id="enc_fecpub" value="<?php echo $enc_fecpub; ?>" size="15"
+                        autocomplete="off" class="" maxlength="8"
+                        title="Fecha de publicaci&oacute;n de la encuesta" />
+            </td>                
+        </tr>         
         
+        <tr>                
+            <td>Fecha de cierre: </td>
+            <td colspan="3">                     
+                <input name="enc_feccie" type="text"
+                        id="enc_feccie" value="<?php echo $enc_feccie; ?>" size="15"
+                        autocomplete="off" class="" maxlength="8"
+                        title="Fecha de cierre de la encuesta" />
+            </td>                
+        </tr>         
         
         
 
@@ -105,8 +123,6 @@
 
         $("#uni_id").change(function(){
             var delimiter = $("#delimiter").val();
-            
-            
             $.ajax({
                 url: '<?php echo $PATH_DOMAIN ?>/encuesta/loadAjaxUnidades/',
                 type: 'POST',
@@ -125,11 +141,36 @@
                     }
                 }
             });            
-            
-            
-            
-            
         });
+        
+        $('#enc_fecpub').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange:'c-5:c+10',
+                    dateFormat: 'yy-mm-dd',
+                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+                        'Junio', 'Julio', 'Agosto', 'Septiembre',
+                        'Octubre', 'Noviembre', 'Diciembre'],
+                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
+                        'May', 'Jun', 'Jul', 'Ago',
+                        'Sep', 'Oct', 'Nov', 'Dic']
+        });
+        
+        $('#enc_feccie').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange:'c-5:c+10',
+                    dateFormat: 'yy-mm-dd',
+                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+                        'Junio', 'Julio', 'Agosto', 'Septiembre',
+                        'Octubre', 'Noviembre', 'Diciembre'],
+                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
+                        'May', 'Jun', 'Jul', 'Ago',
+                        'Sep', 'Oct', 'Nov', 'Dic']
+        });        
+        
         
         
         

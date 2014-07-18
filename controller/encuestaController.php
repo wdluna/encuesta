@@ -71,6 +71,8 @@ class encuestaController Extends baseController {
                 ts.enc_par,
                 ts.enc_codigo,
                 ts.enc_categoria,
+                ts.enc_fecpub,
+                ts.enc_feccie,
                 (SELECT enc_categoria from tab_encuesta WHERE enc_id=ts.enc_par) AS enc_parent,
                 ts.enc_contador
                 FROM
@@ -105,9 +107,10 @@ $i = 0;
             $json .= "id:'" . $un->enc_id . "',";
             $json .= "cell:['" . $un->enc_id . "'";
             $json .= ",'" . addslashes($un->enc_codigo) . "'";
-            $json .= ",'" . addslashes($un->enc_categoria) . "'";            
+            $json .= ",'" . addslashes($un->enc_categoria) . "'";                        
+            $json .= ",'" . addslashes($un->enc_fecpub) . "'";
+            $json .= ",'" . addslashes($un->enc_feccie) . "'";
             $json .= ",'" . addslashes($un->uni_descripcion) . "'";
-            
             $json .= "]}";
             $rc = true;
             $i++;
@@ -131,6 +134,8 @@ $i = 0;
         $this->registry->template->enc_par = "";
         $this->registry->template->enc_categoria = "";
         $this->registry->template->enc_codigo = "0";
+        $this->registry->template->enc_fecpub = "";
+        $this->registry->template->enc_feccie = "";
 
         $this->menu = new menu();
         $this->liMenu = $this->menu->imprimirMenu(VAR1, $_SESSION['USU_ID']);
@@ -155,6 +160,8 @@ $i = 0;
         $tencuesta->setUni_id($_REQUEST['uni_id']);
         $tencuesta->setEnc_par($_REQUEST['enc_par']);
         $tencuesta->setEnc_categoria($_REQUEST['enc_categoria']);
+        $tencuesta->setEnc_fecpub($_REQUEST['enc_fecpub']);
+        $tencuesta->setEnc_feccie($_REQUEST['enc_feccie']);
         $tencuesta->setEnc_contador(1);
         $tencuesta->setEnc_estado(1);
         $id_encie = $tencuesta->insert2();
@@ -184,7 +191,9 @@ $i = 0;
         $this->registry->template->uni_id = $unidad->listUnidad($row->uni_id);        
         $this->registry->template->enc_categoria = utf8_encode($row->enc_categoria);
         $this->registry->template->enc_contador = $row->enc_contador;                
-
+        $this->registry->template->enc_fecpub = "$row->enc_fecpub";
+        $this->registry->template->enc_feccie = "$row->enc_feccie";
+        
         $this->registry->template->titulo = "Editar ";
         $this->registry->template->PATH_WEB = PATH_WEB;
         $this->registry->template->PATH_DOMAIN = PATH_DOMAIN;
@@ -215,6 +224,8 @@ $i = 0;
             $tencuesta->setEnc_par(-1);
         }
         $tencuesta->setEnc_categoria($_REQUEST['enc_categoria']);
+        $tencuesta->setEnc_fecpub($_REQUEST['enc_fecpub']);
+        $tencuesta->setEnc_feccie($_REQUEST['enc_feccie']);
         $tencuesta->setEnc_estado(1);
         $tencuesta->update();
 

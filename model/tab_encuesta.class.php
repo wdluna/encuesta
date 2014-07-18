@@ -18,6 +18,8 @@ class tab_encuesta extends db {
     var $enc_categoria;
     var $enc_contador;
     var $enc_estado;
+    var $enc_fecpub;
+    var $enc_feccie;
     
     
     function __construct() {
@@ -80,7 +82,22 @@ class tab_encuesta extends db {
         $this->enc_estado = $enc_estado;
     }    
     
+    function getEnc_fecpub() {
+        return $this->enc_fecpub;
+    }
+
+    function setEnc_fecpub($enc_fecpub) {
+        $this->enc_fecpub = $enc_fecpub;
+    }        
    
+    function getEnc_feccie() {
+        return $this->enc_feccie;
+    }
+
+    function setEnc_feccie($enc_feccie) {
+        $this->enc_feccie = $enc_feccie;
+    }
+    
 }
 
 ?>

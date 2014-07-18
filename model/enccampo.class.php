@@ -218,7 +218,7 @@ class enccampo extends tab_enccampo {
                 foreach ($row2 as $val2) {
                     $option .="<option value='" . $val2->ecl_id . "'>" . $val2->ecl_valor . "</option>";
                 }
-                $option .= "</select><span class='error-requerid'>*</span>";
+//                $option .= "</select><span class='error-requerid'>*</span>";
                 $option .="</td>";
                 $option .="</tr>";
 
@@ -246,7 +246,7 @@ class enccampo extends tab_enccampo {
 			$option .="<input class='required' type='checkbox' name='rcv_valorC[]' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'>" . $val2->ecl_valor . "";					
                         $option .="<br />";
                 }
-                $option .= "<span class='error-requerid'>*</span>";
+//                $option .= "<span class='error-requerid'>*</span>";
                 $option .="</td>";
                 $option .="</tr>";
 				
@@ -274,7 +274,7 @@ class enccampo extends tab_enccampo {
                     $option .="<input class='required' type='radio' name='rcv_valor' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";
                     $option .="<br />";
                 }
-                $option .= "<span class='error-requerid'>*</span>";
+//                $option .= "<span class='error-requerid'>*</span>";
                 $option .="</td>";
                 $option .="</tr>";
 				
@@ -286,28 +286,24 @@ class enccampo extends tab_enccampo {
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='' type='text'
                                      size='40' autocomplete='off' maxlength='1024' class=''
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
                 } else if ($val->ecp_tipdat == 'Numero') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='' type='text'
                                      size='40' autocomplete='off' maxlength='20' class='onlynumeric'
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
                 } else if ($val->ecp_tipdat == 'Decimal') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='' type='text'
                                      size='40' autocomplete='off' maxlength='20' class='numeric'
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
                 } else if ($val->ecp_tipdat == 'Fecha') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_nombre . "' value='' type='text'
                                      size='40' autocomplete='off' maxlength='20' class=''
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
 
 
@@ -468,7 +464,7 @@ class enccampo extends tab_enccampo {
                         $option .="<option value='" . $val2->ecl_id . "'>" . $val2->ecl_valor . "</option>";
                     }
                 }
-                $option .= "</select><span class='error-requerid'>*</span>";
+//                $option .= "</select><span class='error-requerid'>*</span>";
                 $option .="</td>";
                 $option .="</tr>";
 				
@@ -540,7 +536,7 @@ class enccampo extends tab_enccampo {
                     }
                     
                 }
-                $option .= "<span class='error-requerid'>*</span>";
+//                $option .= "<span class='error-requerid'>*</span>";
                 $option .="</td>";
                 $option .="</tr>";
             
@@ -593,7 +589,7 @@ class enccampo extends tab_enccampo {
                         $option .="<br />";
                     }
                 }
-                $option .= "<span class='error-requerid'>*</span>";
+//                $option .= "<span class='error-requerid'>*</span>";
                 $option .="</td>";
                 $option .="</tr>";
 				
@@ -628,28 +624,24 @@ class enccampo extends tab_enccampo {
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='" . $valor . "' type='text'
                                      size='40' autocomplete='off' maxlength='1024' class=''
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
                 } else if ($val->ecp_tipdat == 'Numero') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='" . $valor . "' type='text'
                                      size='40' autocomplete='off' maxlength='20' class='onlynumeric'
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
                 } else if ($val->ecp_tipdat == 'Decimal') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='" . $valor . "' type='text'
                                      size='40' autocomplete='off' maxlength='20' class='numeric'
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
                 } else if ($val->ecp_tipdat == 'Fecha') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_nombre . "' value='" . $valor . "' type='text'
                                      size='10' autocomplete='off' maxlength='16' class=''
                                      title='" . $val->ecp_nombre . "' />
-                              <span class='error-requerid'>*</span>
                               </td>";
 
 

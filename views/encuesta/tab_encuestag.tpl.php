@@ -26,9 +26,11 @@
                 dataType: 'json',
                 colModel: [
                     {display: 'Id', name: 'enc_id', width: GetColumnSize(3), sortable: true, align: 'center'},
-                    {display: 'C&oacute;digo', name: 'ser_codigo', width: GetColumnSize(12), sortable: true, align: 'left'},
-                    {display: 'Nombre de Serie o Subserie', name: 'ser_categoria', width: GetColumnSize(35), sortable: true, align: 'left'},
-                    {display: 'Secci&oacute;n o Subsecci&oacute;n', name: 'uni_descripcion', width: GetColumnSize(10), sortable: true, align: 'left'},
+                    {display: 'C&oacute;digo', name: 'enc_codigo', width: GetColumnSize(12), sortable: true, align: 'left'},
+                    {display: 'Nombre de Serie o Subserie', name: 'enc_categoria', width: GetColumnSize(55), sortable: true, align: 'left'},
+                    {display: 'Fec. Pub.', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
+                    {display: 'Fec. Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
+                    {display: 'Unidad', name: 'uni_descripcion', width: GetColumnSize(10), sortable: true, align: 'left'},
                 ],
                 buttons: [
                     {name: 'Adicionar', bclass: 'add', onpress: test},
@@ -38,8 +40,8 @@
                 ],
                 searchitems: [
                     {display: 'Id', name: 'enc_id', isdefault: true},                    
-                    {display: 'Secci&oacute;n o Subsecci&oacute;n', name: 'uni_descripcion'},
-                    {display: 'Serie', name: 'ser_categoria'},
+                    {display: 'Unidad', name: 'uni_descripcion'},
+                    {display: 'Serie', name: 'enc_categoria'},
                 ],
                 sortname: "",
                 sortorder: "asc",
