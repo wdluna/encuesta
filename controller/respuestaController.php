@@ -331,7 +331,7 @@ class respuestaController Extends baseController {
         $this->registry->template->GRID_SW = "true";
         $this->registry->template->PATH_J = "jquery-1.4.1";
 
-        $this->registry->template->show('headerF');
+        $this->registry->template->show('headerG');
         $this->registry->template->show('respuesta/tab_respuesta.tpl');
         $this->registry->template->show('footer');
     }
@@ -488,7 +488,7 @@ class respuestaController Extends baseController {
         $this->menu = new menu();
         $this->liMenu = $this->menu->imprimirMenu(VAR1, $_SESSION['USU_ID']);
         $this->registry->template->men_titulo = $this->liMenu;
-        $this->registry->template->show('headerF');
+        $this->registry->template->show('headerG');
         $this->registry->template->show('respuesta/tab_respuesta.tpl');
         $this->registry->template->show('footer');
     }

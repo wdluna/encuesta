@@ -162,7 +162,7 @@
         <div></div>
     </div>
     <div class="mDiv">
-        <div class="ftitle">LISTA DE encuesta DOCUMENTALES</div>
+        <div class="ftitle">LISTA DE ENCUESTAS ASIGNADAS AL USUARIO</div>
     </div>
     <div class="hDiv">
         <div class="hDivBox">

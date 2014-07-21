@@ -199,11 +199,34 @@ class usuarioController Extends baseController {
         if (isset($_REQUEST['lista_encuesta'])) {
             $encuesta = $_REQUEST['lista_encuesta'];
             foreach ($encuesta as $serie) {
+                // Usu_encuesta
                 $use = new tab_usu_encuesta();
                 $use->setUsu_id($usu_id);
                 $use->setEnc_id($serie);
                 $use->setUen_estado(1);
                 $use->insert();
+                                               
+                // Save respuesta
+                $this->respuesta = new tab_respuesta();
+                $this->respuesta->setRequest2Object($_REQUEST);
+//                $this->respuesta->setRes_id($_REQUEST['res_id']);
+                $this->respuesta->setEnc_id($serie);
+                $this->respuesta->setRes_codigo($_SESSION ["UNI_CODIGO"]);        
+                $this->respuesta->setRes_titulo($serie);
+                $this->respuesta->setRes_estado(1);
+                $res_id = $this->respuesta->insert();
+
+
+                // Save encusuario data
+                $this->encusuario = new tab_encusuario();
+//                $this->encusuario->eus_id = '';        
+                $this->encusuario->setUsu_id($usu_id);
+                $this->encusuario->setRes_id($res_id);
+                $this->encusuario->setEus_estado('1');
+                $this->encusuario->insert();                
+                
+                
+                
             }
         }
 

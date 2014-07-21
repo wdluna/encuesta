@@ -72,7 +72,7 @@ class loginController extends baseController {
 //        $this->encuesta = new encuesta ();
         $this->usuario = new usuario ();
         $this->registry->template->PATH_J = "jquery";
-        $this->registry->template->show('header');
+        $this->registry->template->show('headerG');
 	}
 
     function load() {

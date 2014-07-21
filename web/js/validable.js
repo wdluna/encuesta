@@ -6,7 +6,7 @@ var filters = {
         if($(el).val() != '' && $(el).val() != -1){
             return true;
         }else{
-            $.msgbox("Error: Debe completar los datos. \n O existen caracteres invalidos!");
+            $.msgbox("Error: Debe completar los datos \no existen caracteres invalidos!");
             return false;
         }
     },

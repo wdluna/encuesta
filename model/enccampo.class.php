@@ -375,37 +375,37 @@ class enccampo extends tab_enccampo {
                         $option .="</div>";
                         
                         $divn = "div" . $val->egr_id;
-                        $option .="<table border='0' width='100%'>";
+                        $option .="<table border='1' width='100%'>";
                             $option .="<tr>";
-                                $option .="<td width='5%'>";
+                                $option .="<td width='3%' style='background-color:#808080;'  >";
                                         $option .="<label id='nro-slider'>" . $val->egr_id . "</label>";
                                 $option .="</td>";
-                                $option .="<td width='95%'>";
+                                $option .="<td width='97%' style='background-color:#FBED00; background: -moz-linear-gradient(top, #FBED00 10%, #FEC20E 100%); background: -webkit-linear-gradient(top, #FBED00 10%,#FEC20E 100%); ' >";
 //                                        $option .="<input type='button' onclick='$('#div2').toggle(500);' id='title-slider2'  align='left' value='" . $val->egr_nombre . "' >";
-                                        $option .="<input type='button' id='title-slider2'  align='left' value='" . $val->egr_nombre . "' >";
+                                        $option .="<input type='button' id='title-slider2'  align='left' value='" . $val->egr_nombre . "' > ";
                                 $option .="</td>";
                             $option .="</tr>";
                         $option .="</table>";                    
                         $option .="<div id='" . $divn . "' style='background-color:#eeeeee;border:0px solid;'>";
-                                $option .="<table border='0' width='100%'>";
+                                $option .="<table border='1' width='100%'>";
                         $flag = true;                        
                                                 
                     }
                 }else{
                     $divn = "div" . $val->egr_id;
-                    $option .="<table border='0' width='100%'>";
+                    $option .="<table border='1' width='100%'>";
                         $option .="<tr>";
-                            $option .="<td width='5%'>";
+                            $option .="<td width='3%' style='background-color:#808080;'>";
                                     $option .="<label id='nro-slider'>" . $val->egr_id . "</label>";
                             $option .="</td>";
-                            $option .="<td width='95%'>";
+                            $option .="<td width='97%' style='background-color:#FBED00; background: -moz-linear-gradient(top, #FBED00 10%, #FEC20E 100%); background: -webkit-linear-gradient(top, #FBED00 10%,#FEC20E 100%); ' >";
 //                                    $option .="<input type='button' onclick='$('#div1').toggle(500);'  id='title-slider2'  align='left' value='" . $val->egr_nombre . "' >";
                                     $option .="<input type='button' id='title-slider2'  align='left' value='" . $val->egr_nombre . "' >";
                             $option .="</td>";
                         $option .="</tr>";
                     $option .="</table>";                    
                     $option .="<div id='" . $divn . "' style='background-color:#eeeeee;border:0px solid;'>";
-                            $option .="<table border='0' width='100%'>";
+                            $option .="<table border='1' width='100%'>";
                     $flag = true;
                 }
             }

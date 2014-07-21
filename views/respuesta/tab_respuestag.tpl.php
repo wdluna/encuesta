@@ -11,8 +11,8 @@
 <link href="<?php echo $PATH_WEB ?>/js/javascript/msgbox/jquery.msgbox.css" rel="stylesheet" type="text/css" />
 <script languaje="javascript" type="text/javascript" src="<?php echo $PATH_WEB ?>/js/javascript/msgbox/jquery.msgbox.js"></script>
 
-<div class="clear"></div><br/>
-<p><table id="flex1" style="display:none"></table></p>
+<div class="clear"></div><br/><br/>
+<!--<p><table id="flex1" style="display:none"></table></p>-->
 <p><table id="flex2" style="display:none"></table></p>
 <div class="clear"></div>
 
@@ -60,7 +60,7 @@
         minimize: <?php echo $GRID_SW ?>,
         showTableToggleBtn: true,
         width: "100%",
-        height: 140,
+        height: 60,
         autoload: true
     });
 
@@ -82,8 +82,7 @@
             <?php if ($total==0) { ?>            
             {name: 'Adicionar', bclass: 'add', onpress: test2},
             <?php } ?>            
-            {name: 'Editar', bclass: 'edit', onpress: test2},
-            {name: 'Eliminar', bclass: 'delete', onpress: test2}, 
+            {name: 'Abrir encuesta', bclass: 'edit', onpress: test2},
             {separator: true},
             {name: 'Ver encuesta', bclass: 'pdf', onpress: test2}, 
             {name: 'Cerrar encuesta', bclass: 'mail', onpress: test2},
@@ -169,7 +168,7 @@
         }
         
 
-        else if (com == 'Editar') {
+        else if (com == 'Abrir encuesta') {
             if ($('.trSelected div', grid).html()) {
                 $.post("<?php echo $PATH_DOMAIN ?>/respuesta/verificaEstado/",{res_id:$('.trSelected div',grid).html(),rand:Math.random() } ,function(data){
                     if (data == 'OK') {

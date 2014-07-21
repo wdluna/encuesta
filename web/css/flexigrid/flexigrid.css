@@ -110,9 +110,10 @@
 	background: url(images/wbg.gif) repeat-x 0px -1px;
 }
 
+/*Header grid*/
 .flexigrid div.mDiv {
-	
-	background-color: #123378;
+        /*DimGray*/
+        background-color: #808080;        
 	border: 1px solid #ccc;
 	border-bottom: 0px;
 	border-top: 0px;
@@ -160,8 +161,12 @@
 	background: url(images/ddn.png) no-repeat center;
 }
 
-.flexigrid div.tDiv /*toolbar*/ {
-	background: #5F5C5C;
+
+/*toolbar*/
+.flexigrid div.tDiv  {
+	/*Dark Gray*/
+	background-color: #5F5C5C;
+	/*background: #5F5C5C;*/
 	position: relative;
 	border: 1px solid #ccc;
 	border-bottom: 0px;
@@ -275,6 +280,7 @@
 
 .flexigrid div.iDiv {
 	border: 1px solid #316ac5;
+        /*border: 1px solid #fafafa;*/        
 	position: absolute;
 	overflow: visible;
 	background: none;

@@ -11,9 +11,9 @@
 <link href="<?php echo $PATH_WEB ?>/js/javascript/msgbox/jquery.msgbox.css" rel="stylesheet" type="text/css" />
 <script languaje="javascript" type="text/javascript" src="<?php echo $PATH_WEB ?>/js/javascript/msgbox/jquery.msgbox.js"></script>
 
-<div align="left"><a href="<?php echo $PATH_DOMAIN ?>/respuesta/"><img src="<?php echo $PATH_WEB ?>/img/back.png"></a>
-</div>
-
+<!--<div align="left"><a href="<?php echo $PATH_DOMAIN ?>/respuesta/"><img src="<?php echo $PATH_WEB ?>/img/back.png"></a>
+</div>-->
+<br /><br />
 <p>
 <table id="flex1" style="display: none"></table>
 </p>
@@ -27,10 +27,10 @@
     <strong style="color: red" align="left"><?php echo $msm ?></strong>
 	
     <table border="0" width="100%">
-        <caption class="titulo">ENCUESTA</caption>
+        <caption class="titulo">FORMULARIO DE ENCUESTA</caption>
 
             <tr>
-                <td>Unidad:</td>
+                <td>Entidad/Unidad:</td>
                 <td>
                     <?php echo $uni_descripcion; ?>
                 </td>

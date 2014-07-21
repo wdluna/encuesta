@@ -5,7 +5,7 @@
 
 <div id="footer">
     <a href="http://www.planificacion.gob.bo/" target="_blank" class="byLogos" title="Desarrollado por la DGGE">
-        Desarrollado por DGGE    
+        Desarrollado por la DGGE    
     </a>
 </div>
 </div>
