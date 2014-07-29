@@ -262,7 +262,7 @@ class usuario extends tab_usuario {
         // encuesta
         $sql = "SELECT
                 tab_unidad.uni_id,
-                tab_unidad.uni_cod,
+                tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 tab_encuesta.enc_id,
                 tab_encuesta.enc_codigo,
@@ -308,7 +308,7 @@ class usuario extends tab_usuario {
         $liMenu = "";
         $sql = "SELECT
                 tab_unidad.uni_id,
-                tab_unidad.uni_cod,
+                tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 tab_encuesta.enc_id,
                 tab_encuesta.enc_codigo,

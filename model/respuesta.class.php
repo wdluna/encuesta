@@ -78,6 +78,7 @@ class respuesta extends tab_respuesta {
     }    
 
     function contRespuestas() {
+        $where = "";
         $respuesta = new tab_respuesta();
         if ($_SESSION ["ROL_COD"] != 'ADM') {
             $where .= " AND tab_usuario.usu_id ='" . $_SESSION['USU_ID'] . "' ";

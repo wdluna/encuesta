@@ -70,12 +70,14 @@
         dataType: 'json',
         colModel: [
             {display: 'Id', name: 'res_id', width: GetColumnSize(3), sortable: true, align: 'center'},
-            {display: 'C&oacute;digo', name: 'res_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},            
-            {display: 'Unidad', name: 'uni_descripcion', width: GetColumnSize(10), sortable: true, align: 'left'},   
-            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(35), sortable: true, align: 'left'},  
+//            {display: 'C&oacute;digo', name: 'res_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},            
+            {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(12), sortable: true, align: 'left'},   
+            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(20), sortable: true, align: 'left'},  
             {display: 'Fec. Pub. ', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Fec.Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Estado', name: 'res_estado', width: GetColumnSize(10), sortable: true, align: 'left'},            
+            {display: 'Dias (faltantes)', name: 'dias', width: GetColumnSize(12), sortable: true, align: 'left'},
+            {display: 'Avance (%)', name: 'avance', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Encargado', name: 'encargado', width: GetColumnSize(15), sortable: true, align: 'left'}
         ],
         buttons: [
@@ -211,7 +213,7 @@
                 if (data == 'OK') {
                     alert("Ya se cerró la encuesta");
                 } else {
-                    if (confirm('Esta seguro de cerrar el encuesta ' + $('.trSelected div', grid).html() + ' ?')){
+                    if (confirm('Esta seguro de cerrar la encuesta con Id. ' + $('.trSelected div', grid).html() + ' ? Ya no podrá modificar la misma luego de esta acción.')){
                         if ($('.trSelected div', grid).html()) {
                             $("#res_id").val($('.trSelected div', grid).html());
                             $("#formA").attr("action", "<?php echo $PATH_DOMAIN ?>/respuesta/sendMail/");

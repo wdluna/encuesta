@@ -98,6 +98,8 @@
 
 <script type="text/javascript">
 
+
+
     jQuery(document).ready(function($) {
 
         $("#cancelar").click(function() {
@@ -141,22 +143,21 @@
 
     });
 
+
+    function verificar(){
+        var suma = 0;
+        var los_cboxes = document.getElementsByName('cap[]'); 
+        for (var i = 0, j = los_cboxes.length; i < j; i++) {    
+            if(los_cboxes[i].checked == true){
+                suma++;
+            }
+        }
+
+        if(suma == 0){
+            alert('debe seleccionar una casilla');
+            return false;
+        }else{
+            alert(suma);
+        }
+    }
 </script>
-
-<!--	<table border="1" width="100%">
-		<tr>
-			<td width="5%">
-				<label id="nro-slider">1</label>
-			</td>
-			<td width="95%">
-				<input type="button" id="title-slider2"  align="left" value="PARTE A" onclick='$("#div1").toggle(500);'>
-			</td>
-		</tr>
-	</table>
-	<div id="div1" style="background-color:#eeeeee;border:0px solid; display:none">
-		<table border="1" width="100%">
-			<tr>
-
-			</tr>
-		</table>
-	</div>	-->

@@ -37,6 +37,7 @@ class enccampo extends tab_enccampo {
         if ($default == 'Etiqueta') {
             $option .="<option value='Etiqueta' selected>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
@@ -46,15 +47,27 @@ class enccampo extends tab_enccampo {
         } else if ($default == 'Texto') {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto' selected>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
             $option .="<option value='Lista'>Lista</option>";
             $option .="<option value='CheckBox'>Casilla de verificaci&oacute;n</option>";
             $option .="<option value='RadioButton'>Boton de opci&oacute;n</option>";
+        } else if ($default == 'TextArea') {
+            $option .="<option value='Etiqueta'>Etiqueta</option>";
+            $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea' selected>Area de Texto</option>";
+            $option .="<option value='Numero'>N&uacute;mero</option>";
+            $option .="<option value='Fecha'>Fecha</option>";
+            $option .="<option value='Decimal'>Decimal</option>";
+            $option .="<option value='Lista'>Lista</option>";
+            $option .="<option value='CheckBox'>Casilla de verificaci&oacute;n</option>";
+            $option .="<option value='RadioButton'>Boton de opci&oacute;n</option>";            
         } else if ($default == 'Numero') {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero' selected>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
@@ -64,6 +77,7 @@ class enccampo extends tab_enccampo {
         } else if ($default == 'Fecha') {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha' selected>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
@@ -73,6 +87,7 @@ class enccampo extends tab_enccampo {
         } else if ($default == 'Decimal') {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal' selected>Decimal</option>";
@@ -82,6 +97,7 @@ class enccampo extends tab_enccampo {
         } else if ($default == 'Lista') {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
@@ -91,6 +107,7 @@ class enccampo extends tab_enccampo {
         } else if ($default == 'CheckBox') {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
@@ -100,6 +117,7 @@ class enccampo extends tab_enccampo {
         } else if ($default == 'RadioButton') {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
@@ -109,6 +127,7 @@ class enccampo extends tab_enccampo {
         } else {
             $option .="<option value='Etiqueta'>Etiqueta</option>";
             $option .="<option value='Texto'>Texto</option>";
+            $option .="<option value='TextArea'>Area de Texto</option>";
             $option .="<option value='Numero'>N&uacute;mero</option>";
             $option .="<option value='Fecha'>Fecha</option>";
             $option .="<option value='Decimal'>Decimal</option>";
@@ -247,6 +266,12 @@ class enccampo extends tab_enccampo {
                         $option .="<br />";
                 }
 //                $option .= "<span class='error-requerid'>*</span>";
+                
+                // New Other
+                $option .="<input class='required' type='checkbox' name='rcv_valorC[]' id='0' value='0'>Otro";					
+                $option .="<br />";
+                
+                
                 $option .="</td>";
                 $option .="</tr>";
 				
@@ -287,6 +312,17 @@ class enccampo extends tab_enccampo {
                                      size='40' autocomplete='off' maxlength='1024' class=''
                                      title='" . $val->ecp_nombre . "' />
                               </td>";
+                } else if ($val->ecp_tipdat == 'TextArea') {
+                    $option .="<td colspan='3'>                                         
+                            <textarea name='" . $val->ecp_id . "'
+                                      id='" . $val->ecp_id . "'
+                                      rows='4' cols='120'                          
+                                      autocomplete='off'
+                                      class='alphanum'
+                                      maxlength='10024'
+                                      title='" . $val->ecp_nombre . "' >
+                            </textarea>
+                            </td>";                    
                 } else if ($val->ecp_tipdat == 'Numero') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='' type='text'
@@ -305,7 +341,6 @@ class enccampo extends tab_enccampo {
                                      size='40' autocomplete='off' maxlength='20' class=''
                                      title='" . $val->ecp_nombre . "' />
                               </td>";
-
 
                     $option .="<script type='text/javascript'>";
                     $option .= "jQuery(document).ready(function($) { ";
@@ -487,6 +522,8 @@ class enccampo extends tab_enccampo {
                         AND tab_enccampo.ecp_id = $val->ecp_id 
                         ORDER BY tab_enccampolista.ecl_orden ";
                 $row2 = $this->enccampolista->dbselectBySQL($sql);
+                
+                $name = "rcv_valorC&" . $val->ecp_id . "[]";                
                 foreach ($row2 as $val2) {
                     // Find value
                     $sql = "SELECT
@@ -505,37 +542,98 @@ class enccampo extends tab_enccampo {
                             tab_enccampo.ecp_orden ";
                     $row5 = $this->enccampo->dbselectBySQL($sql);
                     // $valor = $row5[0]->ecl_id;
-                                        
+                    
+                    
+                    $otro = "";                    
                     if ($row5){
+                        
                         foreach ($row5 as $list) {
                             // Revisar
                             $flag = false;
                             $valores = explode (',',$list->rcv_valor);
-                            foreach ($valores as $valor) {
-                                if ($valor == $val2->ecl_id){
-                                    $flag = true;
-                                    break;
+                            for($i=0;$i<count($valores);$i++) {
+                                if($val2->ecl_valor== 'Otro'){
+                                    if ($valores[$i] == $val2->ecl_id){
+                                        $otro = $valores[$i+1];
+                                        $flag = true;
+                                        break;
+                                    }                                    
+                                }else{
+                                    if ($valores[$i] == $val2->ecl_id){
+                                        $flag = true;
+                                        break;
+                                    }
                                 }
-                            }                                                        
+                            }
+                            
+//                            foreach ($valores as $valor) {
+//                                if ($valor == $val2->ecl_id){
+//                                    $flag = true;
+//                                    break;
+//                                }
+//                            }                                                        
                         }
+                        
+                        // Check value
                         if ($flag == true){
-                            $option .="<input type='checkbox' name='rcv_valorC[]' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' >" . $val2->ecl_valor . "";
+                            if ($val2->ecl_valor=='Otro'){
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' >" . $val2->ecl_valor . "";
+                                
+                                $option .="<input name='" . $name . "' id='" . $val->ecl_id . "' value='" . $otro . "' type='text'
+                                     size='20' autocomplete='off' maxlength='128' class='alphanumeric'
+                                     title='' />";                                
+                            }else{
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' >" . $val2->ecl_valor . "";
+                            }
                             $option .="<br />";
                         }else{
-                            $option .="<input type='checkbox' name='rcv_valorC[]' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";
+                            if ($val2->ecl_valor=='Otro'){
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";
+                                
+                                $option .="<input name='" . $name . "' id='" . $val->ecl_id . "' value='" . $otro . "' type='text'
+                                     size='20' autocomplete='off' maxlength='128' class='alphanumeric'
+                                     title='' />";                                                 
+                                
+                            }else{
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";
+                            }
                             $option .="<br />";
                         }
                     }else{
-                        if ($valor == $val2->ecl_id){                            
-                            $option .="<input type='checkbox' name='rcv_valorC[]' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' >" . $val2->ecl_valor . "";                           
-                            $option .="<br />";
+                        // New Other
+                        if ($val2->ecl_valor == "Otro"){
+                            if ($valor == $val2->ecl_id){                            
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' >" . $val2->ecl_valor . "";                           
+                                // New Other
+                                $option .="<input name='" . $name . "' id='" . $val->ecl_id . "' value='" . $otro . "' type='text'
+                                     size='20' autocomplete='off' maxlength='128' class='alphanumeric'
+                                     title='' />";                                                 
+                                
+                                $option .="<br />";
+                            }else{
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";                                
+                                // New Other
+                                $option .="<input name='" . $name . "' id='" . $val->ecl_id . "' value='' type='text'
+                                     size='20' autocomplete='off' maxlength='128' class='alphanumeric'
+                                     title='' />";                                
+                                $option .="<br />";
+                            }
+                        // Anterior
                         }else{
-                            $option .="<input type='checkbox' name='rcv_valorC[]' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";                        
-                            $option .="<br />";
+                            if ($valor == $val2->ecl_id){                            
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' >" . $val2->ecl_valor . "";                           
+                                $option .="<br />";
+                            }else{
+                                $option .="<input type='checkbox' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";                        
+                                $option .="<br />";
+                            }
                         }
                     }
                     
                 }
+                
+                
+                
 //                $option .= "<span class='error-requerid'>*</span>";
                 $option .="</td>";
                 $option .="</tr>";
@@ -559,6 +657,8 @@ class enccampo extends tab_enccampo {
                         AND tab_enccampo.ecp_id = $val->ecp_id 
                         ORDER BY tab_enccampolista.ecl_orden ";
                 $row2 = $this->enccampolista->dbselectBySQL($sql);
+                //
+                $name= "rcv_valor&" . $val->ecp_id;                
                 foreach ($row2 as $val2) {
                     // Find value
                     // Find Value
@@ -581,11 +681,14 @@ class enccampo extends tab_enccampo {
                     foreach ($row5 as $list) {
                         $valor = $list->rcv_valor;
                     }
+                    // Modified
                     if ($valor == $val2->ecl_id){
-                        $option .="<input type='radio' name='rcv_valor' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' > " . $val2->ecl_valor . "";
+//                        $option .="<input type='radio' name='rcv_valor' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' > " . $val2->ecl_valor . "";
+                        $option .="<input type='radio' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "' checked='checked' > " . $val2->ecl_valor . "";
                         $option .="<br />";
                     }else{
-                        $option .="<input type='radio' name='rcv_valor' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";
+//                        $option .="<input type='radio' name='rcv_valor' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";
+                        $option .="<input type='radio' name='" . $name . "' id='" . $val2->ecl_id . "' value='" . $val2->ecl_id . "'> " . $val2->ecl_valor . "";
                         $option .="<br />";
                     }
                 }
@@ -625,6 +728,18 @@ class enccampo extends tab_enccampo {
                                      size='40' autocomplete='off' maxlength='1024' class=''
                                      title='" . $val->ecp_nombre . "' />
                               </td>";
+                } else if ($val->ecp_tipdat == 'TextArea') {
+                    $option .="<td colspan='3'>                                         
+                            <textarea name='" . $val->ecp_id . "'
+                                      id='" . $val->ecp_id . "'
+                                      rows='4' cols='50'                          
+                                      autocomplete='off'
+                                      class='alphanum'
+                                      maxlength='10024'
+                                      title='" . $val->ecp_nombre . "' >" 
+                                      . $valor . 
+                            "</textarea>
+                            </td>";                    
                 } else if ($val->ecp_tipdat == 'Numero') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='" . $valor . "' type='text'
@@ -1277,6 +1392,30 @@ class enccampo extends tab_enccampo {
     }
 
 
+    function esOtro($ecl_id) {
+        
+        // Find Value
+        $sql = "SELECT
+            tab_enccampolista.ecl_id,
+            tab_enccampolista.ecl_valor
+            FROM
+            tab_enccampolista
+            WHERE tab_enccampolista.ecl_id = '$ecl_id'
+            AND tab_enccampolista.ecl_estado = '1' ";
+        $this->enccampolista = new tab_enccampolista();
+        $row = $this->enccampolista->dbselectBySQL($sql);
+        if (isset($row)) {
+            foreach ($row as $val) {
+                if ($val->ecl_valor == 'Otro'){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
+    }
+    
+    
 
 }
 

@@ -101,7 +101,7 @@ class respuestaController Extends baseController {
             $where .= " AND tab_usu_encuesta.usu_id=$usu_id ";
         }
         $sql = "SELECT	distinct
-                tab_unidad.uni_cod,
+                tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 s.enc_id,
                 s.enc_par,
@@ -218,7 +218,7 @@ class respuestaController Extends baseController {
         $sql = "SELECT
         tab_respuesta.res_id,
         tab_unidad.uni_descripcion,
-        tab_unidad.uni_cod,
+        tab_unidad.uni_codigo,
         tab_encuesta.enc_id,
         tab_encuesta.enc_par,
         tab_encuesta.enc_codigo,
@@ -277,12 +277,14 @@ class respuestaController Extends baseController {
             $json .= "\n{";
             $json .= "id:'" . $un->res_id . "',";
             $json .= "cell:['" . $un->res_id . "'";            
-            $json .= ",'" . addslashes($un->res_codigo) . "'";
-            $json .= ",'" . addslashes($un->uni_descripcion) . "'";
+//            $json .= ",'" . addslashes($un->res_codigo) . "'";
+            $json .= ",'" . addslashes($un->uni_codigo) . "'";
             $json .= ",'" . addslashes($un->enc_categoria) . "'";  
             $json .= ",'" . addslashes($un->enc_fecpub) . "'";
             $json .= ",'" . addslashes($un->enc_feccie) . "'";
             $json .= ",'" . addslashes($un->res_estado) . "'";
+            $json .= ",'" . addslashes(10) . "'";
+            $json .= ",'" . addslashes(0) . "'";
             $json .= ",'" . addslashes($un->usu_nombres . ' ' . $un->usu_apellidos) . "'";
             $json .= "]}";
             $rc = true;
@@ -539,13 +541,50 @@ class respuestaController Extends baseController {
                 } else if ($val->ecp_tipdat == 'CheckBox') {
                     $rcv_valor = "";
                     $ecp_id = $val->ecp_id;
-                    if (isset($_REQUEST['rcv_valorC'])) {
-                        $valores = $_REQUEST['rcv_valorC'];
+                    
+//                    $name = "'rcv_valor&" . $ecp_id . "'";
+                    $name = "rcv_valorC&" . $ecp_id . "";
+                    if (isset($_REQUEST[$name])) {
+                        $valores = $_REQUEST[$name];
+//                    if (isset($_REQUEST['rcv_valorC'])) {
+//                        $valores = $_REQUEST['rcv_valorC'];
                         // Codificar
                         $rcv_valor = "";
-                        foreach ($valores as $valor) {
-                            $rcv_valor .= $valor . ",";
+                        $i = 0;
+
+                        // New
+                        for($i=0;$i<count($valores);$i++) {
+                            if($enccampo->esOtro($valores[$i])){
+                                $rcv_valor .= $valores[$i] . ",";
+                                $rcv_valor .= $valores[$i+1] . ",";
+                                $i++;
+                            }else{                                
+                                // Sino seguir iterando
+                                $rcv_valor .= $valores[$i] . ",";
+                            }                            
                         }
+                                                
+//                        foreach ($valores as $valor) {
+//                            // Si valor es "Ninguno"
+//                            // Solo almacenar el valor de Ninguno y break
+//                            
+//                            // Si $valor es "Otro"
+//                            // Sacar el siguiente y break
+//                            if($enccampo->esOtro($valor)){
+//                                $rcv_valor = $valor . ",";
+//                                $i++;
+//                                if ($i==2) {
+//                                    break;
+//                                }
+//                            }else{                            
+//                                // Sino seguir iterando
+//                                $rcv_valor .= $valor . ",";
+//                            }                            
+////                            $rcv_valor .= $valor . ",";
+//                        }
+                        
+                        
+                        
                     }
                     $rescampovalor = new rescampovalor();
                     $rcv_id = $rescampovalor->obtenerIdCampoValorporencuesta($ecp_id, $res_id);
@@ -572,9 +611,16 @@ class respuestaController Extends baseController {
                 } else if ($val->ecp_tipdat == 'RadioButton') {
                     $rcv_valor = "";
                     $ecp_id = $val->ecp_id;
-                    if (isset($_REQUEST['rcv_valor'])) {
-                        $rcv_valor = $_REQUEST['rcv_valor'];
-                    }
+                    
+//                    $name = "'rcv_valor&" . $ecp_id . "'";
+                    $name = "rcv_valor&" . $ecp_id . "";
+//                    if (isset($_REQUEST['rcv_valor'])) {
+//                        $rcv_valor = $_REQUEST['rcv_valor'];
+//                    }
+                    if (isset($_REQUEST[$name])) {
+                        $rcv_valor = $_REQUEST[$name];
+                    }                    
+                    
                     $rescampovalor = new rescampovalor();
                     $rcv_id = $rescampovalor->obtenerIdCampoValorporencuesta($ecp_id, $res_id);
                     if ($rcv_id == 0) {

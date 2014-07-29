@@ -19,7 +19,6 @@ class unidad extends Tab_unidad {
         $option = "";
         $sql = "SELECT
                 tab_unidad.uni_id,
-                tab_unidad.uni_cod,
                 tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 tab_unidad.uni_par
@@ -27,7 +26,7 @@ class unidad extends Tab_unidad {
                 tab_unidad
                 WHERE
                 tab_unidad.uni_estado = 1
-                ORDER BY tab_unidad.uni_cod ";
+                ORDER BY tab_unidad.uni_codigo ";
 
         $rows = $this->unidad->dbSelectBySQL($sql);
         if (count($rows) > 0) {
@@ -56,7 +55,6 @@ class unidad extends Tab_unidad {
                 tab_fondo.fon_cod,
                 tab_fondo.fon_descripcion,
                 tab_unidad.uni_id,
-                tab_unidad.uni_cod,
                 tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 tab_unidad.uni_par
@@ -66,7 +64,7 @@ class unidad extends Tab_unidad {
                 WHERE
                 tab_unidad.uni_estado = 1
                 ORDER BY tab_fondo.fon_cod,
-                tab_unidad.uni_cod  ";
+                tab_unidad.uni_codigo  ";
         $rows = $this->unidad->dbSelectBySQL($sql);        
         if (count($rows) > 0) {
             foreach ($rows as $unidad) {
@@ -105,7 +103,6 @@ class unidad extends Tab_unidad {
                 tab_fondo.fon_cod,
                 tab_fondo.fon_descripcion,
                 tab_unidad.uni_id,
-                tab_unidad.uni_cod,
                 tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 tab_unidad.uni_par
@@ -118,7 +115,7 @@ class unidad extends Tab_unidad {
                 tab_unidad.uni_estado = 1
                 $where 
                 ORDER BY tab_fondo.fon_cod,
-                tab_unidad.uni_cod ";        
+                tab_unidad.uni_codigo ";        
         
         $rows = $this->unidad->dbSelectBySQL($sql);
         
@@ -162,7 +159,7 @@ class unidad extends Tab_unidad {
                     tu.uni_descripcion
                     FROM tab_unidad tu
                     WHERE (tu.uni_estado = '10' OR tu.uni_estado = '1') $add
-                    ORDER BY tu.uni_cod ASC ";
+                    ORDER BY tu.uni_codigo ASC ";
             $rows = $this->unidad->dbSelectBySQL($sql);
             if (count($rows) > 0) {
                 foreach ($rows as $val) {
@@ -232,13 +229,13 @@ class unidad extends Tab_unidad {
 
     function getCodigo($id) {
         $sql = "select 
-                uni_cod 
+                uni_codigo 
                 from tab_unidad 
                 where uni_id = $id";
         $row = $this->unidad->dbselectBySQL($sql);
         $option = "";
         foreach ($row as $val) {
-            $option = $val->uni_cod;
+            $option = $val->uni_codigo;
         }
         return $option;
     }

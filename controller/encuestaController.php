@@ -66,7 +66,7 @@ class encuestaController Extends baseController {
 
         $sql = "SELECT
                 ts.enc_id,
-                tab_unidad.uni_cod,
+                tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 ts.enc_par,
                 ts.enc_codigo,

@@ -72,7 +72,8 @@ class loginController extends baseController {
 //        $this->encuesta = new encuesta ();
         $this->usuario = new usuario ();
         $this->registry->template->PATH_J = "jquery";
-        $this->registry->template->show('headerG');
+        Header("Location: " . PATH_DOMAIN . "/respuesta/index/");
+//        $this->registry->template->show('headerG');
 	}
 
     function load() {

@@ -36,7 +36,7 @@
                     {name: 'Adicionar', bclass: 'add', onpress: test},
                     {name: 'Eliminar', bclass: 'delete', onpress: test},
                     {name: 'Editar', bclass: 'edit', onpress: test}, {separator: true},
-                    {name: 'Datos encuesta', bclass: 'add', onpress: test},
+                    {name: 'Preguntas encuesta', bclass: 'add', onpress: test},
                 ],
                 searchitems: [
                     {display: 'Id', name: 'enc_id', isdefault: true},                    
@@ -110,7 +110,7 @@
                 alert("Por favor, seleccione un registro o escoja una serie ");
             }
         }
-        else if (com == 'Datos encuesta')
+        else if (com == 'Preguntas encuesta')
         {
             if ($('.trSelected', grid).html())
             {

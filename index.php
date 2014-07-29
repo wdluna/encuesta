@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 /* Establecer configuraci&oacute;n regional al espaniol */
 setlocale(LC_ALL, 'es_ES');
 
+        
 /* * * define the site path ** */
 $site_path = realpath(dirname(__FILE__));
 define('__SITE_PATH', $site_path);
