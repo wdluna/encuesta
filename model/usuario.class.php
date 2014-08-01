@@ -60,7 +60,7 @@ class usuario extends tab_usuario {
     function esAdm() {
         $rows = array();
         $rows = $this->usuario->dbselectByField("usu_id", $_SESSION ['USU_ID']);
-        if (count($rows) && $rows [0]->rol_id == '2')
+        if (count($rows) && $rows [0]->rol_id == '1')
             return true;
         return false;
     }

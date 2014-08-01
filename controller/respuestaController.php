@@ -46,121 +46,121 @@ class respuestaController Extends baseController {
         $this->registry->template->show('footer');
     }
 
-    function loadSerie() {
-
-        $this->respuesta = new tab_respuesta ();
-        $this->respuesta->setRequest2Object($_REQUEST);
-
-        $page = $_REQUEST ['page'];
-        $rp = $_REQUEST ['rp'];
-        $sortname = $_REQUEST ['sortname'];
-        $sortorder = $_REQUEST ['sortorder'];
-        if (!$sortname) {
-            $sortname = " s.enc_codigo ";
-        }
-        if (!$sortorder)
-            $sortorder = 'desc';
-        $sort = "ORDER BY $sortname $sortorder";
-        if (!$page)
-            $page = 1;
-        if (!$rp)
-            $rp = 10;
-        $start = (($page - 1) * $rp);
-        $limit = "LIMIT $rp OFFSET $start ";
-        $query = strtoupper(trim($_REQUEST ['query']));
-        $qtype = $_REQUEST ['qtype'];
-        $where = "";
-
-
-        if ($query != "") {
-            $_SESSION ["ENC_ID"] = null;
-            if ($qtype == 'enc_id')
-                $where .= " and s.enc_id = '$query' ";
-            elseif ($qtype == 'enc_categoria')
-                $where .= " and s.enc_categoria LIKE '%$query%' ";
-            elseif ($qtype == 'uni_descripcion')
-                $where .= " and tab_unidad.uni_descripcion LIKE '%$query%' ";
-            else
-                $where .= " and $qtype LIKE '%$query%' ";
-        }else {
-            // Serie
-            if (VAR3) {
-                $_SESSION ["ENC_ID"] = VAR3;
-            }
-//            else{
-//                $_SESSION ["ENC_ID"] = null;
+//    function loadSerie() {
+//
+//        $this->respuesta = new tab_respuesta ();
+//        $this->respuesta->setRequest2Object($_REQUEST);
+//
+//        $page = $_REQUEST ['page'];
+//        $rp = $_REQUEST ['rp'];
+//        $sortname = $_REQUEST ['sortname'];
+//        $sortorder = $_REQUEST ['sortorder'];
+//        if (!$sortname) {
+//            $sortname = " s.enc_codigo ";
+//        }
+//        if (!$sortorder)
+//            $sortorder = 'desc';
+//        $sort = "ORDER BY $sortname $sortorder";
+//        if (!$page)
+//            $page = 1;
+//        if (!$rp)
+//            $rp = 10;
+//        $start = (($page - 1) * $rp);
+//        $limit = "LIMIT $rp OFFSET $start ";
+//        $query = strtoupper(trim($_REQUEST ['query']));
+//        $qtype = $_REQUEST ['qtype'];
+//        $where = "";
+//
+//
+//        if ($query != "") {
+//            $_SESSION ["ENC_ID"] = null;
+//            if ($qtype == 'enc_id')
+//                $where .= " and s.enc_id = '$query' ";
+//            elseif ($qtype == 'enc_categoria')
+//                $where .= " and s.enc_categoria LIKE '%$query%' ";
+//            elseif ($qtype == 'uni_descripcion')
+//                $where .= " and tab_unidad.uni_descripcion LIKE '%$query%' ";
+//            else
+//                $where .= " and $qtype LIKE '%$query%' ";
+//        }else {
+//            // Serie
+//            if (VAR3) {
+//                $_SESSION ["ENC_ID"] = VAR3;
 //            }
-        }
-
-        if ($_SESSION ["ENC_ID"])
-            $where.=" AND s.enc_id='" . $_SESSION ['ENC_ID'] . "'";
-
-
-        $usu_id = $_SESSION['USU_ID'];
-        if ($_SESSION ["ROL_COD"] != 'ADM') {
-            $where .= " AND tab_usu_encuesta.usu_id=$usu_id ";
-        }
-        $sql = "SELECT	distinct
-                tab_unidad.uni_codigo,
-                tab_unidad.uni_descripcion,
-                s.enc_id,
-                s.enc_par,
-                s.enc_codigo,
-                s.enc_categoria,
-                s.enc_fecpub,
-                s.enc_feccie
-                FROM
-                tab_encuesta AS s
-                INNER JOIN tab_unidad ON tab_unidad.uni_id = s.uni_id
-                INNER JOIN tab_usu_encuesta ON tab_usu_encuesta.enc_id = s.enc_id
-                WHERE
-                s.enc_estado = '1'
-                AND tab_usu_encuesta.uen_estado = '1'
-                $where
-                $sort
-                $limit ";
-
-        $result = $this->respuesta->dbSelectBySQL($sql);
-        $total = $this->respuesta->countBySQL("SELECT COUNT (distinct s.enc_id)
-                                            FROM
-                                            tab_encuesta AS s
-                                            INNER JOIN tab_unidad ON tab_unidad.uni_id = s.uni_id
-                                            INNER JOIN tab_usu_encuesta ON tab_usu_encuesta.enc_id = s.enc_id
-                                            WHERE
-                                            s.enc_estado = '1'
-                                            AND tab_usu_encuesta.uen_estado = '1'
-                                            $where");
-
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        header("Cache-Control: no-cache, must-revalidate");
-        header("Pragma: no-cache");
-        header("Content-type: text/x-json");
-        $json = "";
-        $json .= "{\n";
-        $json .= "page: $page,\n";
-        $json .= "total: $total,\n";
-        $json .= "rows: [";
-        $rc = false;
-        $i = 0;
-        foreach ($result as $un) {
-            if ($rc)
-                $json .= ",";
-            $json .= "\n{";
-            $json .= "id:'" . $un->enc_id . "',";
-            $json .= "cell:['" . $un->enc_id . "'";
-            $json .= ",'" . addslashes($un->enc_codigo) . "'";
-            $json .= ",'" . addslashes($un->uni_descripcion) . "'";
-            $json .= ",'" . addslashes($un->enc_categoria) . "'";
-            $json .= ",'" . addslashes($un->enc_fecpub) . "'";
-            $json .= ",'" . addslashes($un->enc_feccie) . "'";
-            $json .= "]}";
-            $rc = true;
-            $i++;
-        }
-        $json .= "]\n";
-        $json .= "}";
-        echo $json;
-    }
+////            else{
+////                $_SESSION ["ENC_ID"] = null;
+////            }
+//        }
+//
+//        if ($_SESSION ["ENC_ID"])
+//            $where.=" AND s.enc_id='" . $_SESSION ['ENC_ID'] . "'";
+//
+//
+//        $usu_id = $_SESSION['USU_ID'];
+//        if ($_SESSION ["ROL_COD"] != 'ADM') {
+//            $where .= " AND tab_usu_encuesta.usu_id=$usu_id ";
+//        }
+//        $sql = "SELECT	distinct
+//                tab_unidad.uni_codigo,
+//                tab_unidad.uni_descripcion,
+//                s.enc_id,
+//                s.enc_par,
+//                s.enc_codigo,
+//                s.enc_categoria,
+//                s.enc_fecpub,
+//                s.enc_feccie
+//                FROM
+//                tab_encuesta AS s
+//                INNER JOIN tab_unidad ON tab_unidad.uni_id = s.uni_id
+//                INNER JOIN tab_usu_encuesta ON tab_usu_encuesta.enc_id = s.enc_id
+//                WHERE
+//                s.enc_estado = '1'
+//                AND tab_usu_encuesta.uen_estado = '1'
+//                $where
+//                $sort
+//                $limit ";
+//
+//        $result = $this->respuesta->dbSelectBySQL($sql);
+//        $total = $this->respuesta->countBySQL("SELECT COUNT (distinct s.enc_id)
+//                                            FROM
+//                                            tab_encuesta AS s
+//                                            INNER JOIN tab_unidad ON tab_unidad.uni_id = s.uni_id
+//                                            INNER JOIN tab_usu_encuesta ON tab_usu_encuesta.enc_id = s.enc_id
+//                                            WHERE
+//                                            s.enc_estado = '1'
+//                                            AND tab_usu_encuesta.uen_estado = '1'
+//                                            $where");
+//
+//        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+//        header("Cache-Control: no-cache, must-revalidate");
+//        header("Pragma: no-cache");
+//        header("Content-type: text/x-json");
+//        $json = "";
+//        $json .= "{\n";
+//        $json .= "page: $page,\n";
+//        $json .= "total: $total,\n";
+//        $json .= "rows: [";
+//        $rc = false;
+//        $i = 0;
+//        foreach ($result as $un) {
+//            if ($rc)
+//                $json .= ",";
+//            $json .= "\n{";
+//            $json .= "id:'" . $un->enc_id . "',";
+//            $json .= "cell:['" . $un->enc_id . "'";
+//            $json .= ",'" . addslashes($un->enc_codigo) . "'";
+//            $json .= ",'" . addslashes($un->uni_descripcion) . "'";
+//            $json .= ",'" . addslashes($un->enc_categoria) . "'";
+//            $json .= ",'" . addslashes($un->enc_fecpub) . "'";
+//            $json .= ",'" . addslashes($un->enc_feccie) . "'";
+//            $json .= "]}";
+//            $rc = true;
+//            $i++;
+//        }
+//        $json .= "]\n";
+//        $json .= "}";
+//        echo $json;
+//    }
 
     function load() {
 
@@ -198,10 +198,15 @@ class respuestaController Extends baseController {
             elseif ($qtype == 'res_titulo')
                 $where .= " and tab_respuesta.res_titulo LIKE '%$query%' ";
             elseif ($qtype == 'uni_descripcion')
-                $where .= " and tab_unidad.uni_descripcion LIKE '%$query%' ";
+                $where .= " and tab_unidad.uni_codigo LIKE '%$query%' ";
             elseif ($qtype == 'encargado') {
                 $nomArray = explode(" ", $query);
-                $where .= " and (tab_usuario.usu_nombres LIKE '%$nomArray[0]%' OR tab_usuario.usu_apellidos LIKE '%$nomArray[1]%') ";
+                if ($nomArray[1]){
+                    $where .= " and (tab_usuario.usu_nombres LIKE '%$nomArray[0]%' OR tab_usuario.usu_apellidos LIKE '%$nomArray[1]%') ";
+                }else{
+                    $where .= " and (tab_usuario.usu_nombres LIKE '%$nomArray[0]%') ";
+                }    
+                   
             } else
                 $where .= " and $qtype LIKE '%$query%' ";
         }else {
@@ -215,35 +220,69 @@ class respuestaController Extends baseController {
             $where .= " AND tab_usuario.usu_id ='" . $_SESSION['USU_ID'] . "' ";
         } 
         
+//        $sql = "SELECT
+//        tab_respuesta.res_id,
+//        tab_unidad.uni_descripcion,
+//        tab_unidad.uni_codigo,
+//        tab_encuesta.enc_id,
+//        tab_encuesta.enc_par,
+//        tab_encuesta.enc_codigo,
+//        tab_encuesta.enc_categoria,
+//        tab_encuesta.enc_fecpub,
+//        tab_encuesta.enc_feccie,
+//        tab_respuesta.res_codigo,
+//        tab_respuesta.res_titulo,
+//        CASE WHEN tab_respuesta.res_estado=1 THEN 'ABIERTA' ELSE 'CERRADA' END as res_estado,
+//        tab_usuario.usu_id,
+//        tab_usuario.usu_nombres,
+//        tab_usuario.usu_apellidos
+//        FROM
+//        tab_usuario
+//        INNER JOIN tab_encusuario ON tab_usuario.usu_id = tab_encusuario.usu_id
+//        INNER JOIN tab_respuesta ON tab_encusuario.res_id = tab_respuesta.res_id
+//        INNER JOIN tab_encuesta ON tab_respuesta.enc_id = tab_encuesta.enc_id
+//        INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_encuesta.uni_id
+//        WHERE tab_unidad.uni_estado = 1
+//        AND tab_encuesta.enc_estado = 1
+//        AND (tab_respuesta.res_estado = 1 OR tab_respuesta.res_estado = 2)
+//        AND tab_encusuario.eus_estado = 1
+//        $where
+//        $sort
+//        $limit ";
+        
+        
         $sql = "SELECT
-        tab_respuesta.res_id,
-        tab_unidad.uni_descripcion,
-        tab_unidad.uni_codigo,
-        tab_encuesta.enc_id,
-        tab_encuesta.enc_par,
-        tab_encuesta.enc_codigo,
-        tab_encuesta.enc_categoria,
-        tab_encuesta.enc_fecpub,
-        tab_encuesta.enc_feccie,
-        tab_respuesta.res_codigo,
-        tab_respuesta.res_titulo,
-        CASE WHEN tab_respuesta.res_estado=1 THEN 'ABIERTA' ELSE 'CERRADA' END as res_estado,
-        tab_usuario.usu_id,
-        tab_usuario.usu_nombres,
-        tab_usuario.usu_apellidos
-        FROM
-        tab_usuario
-        INNER JOIN tab_encusuario ON tab_usuario.usu_id = tab_encusuario.usu_id
-        INNER JOIN tab_respuesta ON tab_encusuario.res_id = tab_respuesta.res_id
-        INNER JOIN tab_encuesta ON tab_respuesta.enc_id = tab_encuesta.enc_id
-        INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_encuesta.uni_id
-        WHERE tab_unidad.uni_estado = 1
-        AND tab_encuesta.enc_estado = 1
-        AND (tab_respuesta.res_estado = 1 OR tab_respuesta.res_estado = 2)
-        AND tab_encusuario.eus_estado = 1
-        $where
-        $sort
-        $limit ";
+                tab_unidad.uni_codigo,
+                tab_unidad.uni_descripcion,
+                tab_respuesta.res_id,
+                tab_encuesta.enc_id,
+                tab_encuesta.enc_par,
+                tab_encuesta.enc_codigo,
+                tab_encuesta.enc_categoria,
+                tab_encuesta.enc_fecpub,
+                tab_encuesta.enc_feccie,
+                tab_respuesta.res_codigo,
+                tab_respuesta.res_titulo,
+                CASE WHEN tab_respuesta.res_estado=1 THEN 'ABIERTA' ELSE 'CERRADA' END AS res_estado,
+                tab_usuario.usu_id,
+                tab_usuario.usu_nombres,
+                tab_usuario.usu_apellidos,
+                tab_usuario.usu_fono,
+                tab_usuario.usu_email
+                FROM
+                tab_usuario
+                INNER JOIN tab_encusuario ON tab_usuario.usu_id = tab_encusuario.usu_id
+                INNER JOIN tab_respuesta ON tab_encusuario.res_id = tab_respuesta.res_id
+                INNER JOIN tab_encuesta ON tab_respuesta.enc_id = tab_encuesta.enc_id
+                INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_usuario.uni_id
+                WHERE
+                tab_encuesta.enc_estado = 1 AND
+                (tab_respuesta.res_estado = 1 OR
+                tab_respuesta.res_estado = 2) AND
+                tab_encusuario.eus_estado = 1
+                $where
+                $sort
+                $limit ";
 
         $result = $this->tab_respuesta->dbSelectBySQL($sql);
         $total = $this->tab_respuesta->countBySQL("SELECT count (tab_respuesta.res_id)
@@ -252,11 +291,12 @@ class respuestaController Extends baseController {
                                                 INNER JOIN tab_encusuario ON tab_usuario.usu_id = tab_encusuario.usu_id
                                                 INNER JOIN tab_respuesta ON tab_encusuario.res_id = tab_respuesta.res_id
                                                 INNER JOIN tab_encuesta ON tab_respuesta.enc_id = tab_encuesta.enc_id
-                                                INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_encuesta.uni_id
-                                                WHERE tab_unidad.uni_estado = 1
-                                                AND tab_encuesta.enc_estado = 1
-                                                AND (tab_respuesta.res_estado = 1 OR tab_respuesta.res_estado = 2)
-                                                AND tab_encusuario.eus_estado = 1
+                                                INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_usuario.uni_id
+                                                WHERE
+                                                tab_encuesta.enc_estado = 1 AND
+                                                (tab_respuesta.res_estado = 1 OR
+                                                tab_respuesta.res_estado = 2) AND
+                                                tab_encusuario.eus_estado = 1
                                                 $where");
 
         
@@ -282,10 +322,18 @@ class respuestaController Extends baseController {
             $json .= ",'" . addslashes($un->enc_categoria) . "'";  
             $json .= ",'" . addslashes($un->enc_fecpub) . "'";
             $json .= ",'" . addslashes($un->enc_feccie) . "'";
+            // Dias
+            $fechaactual = date("Y-m-d");
+            $dias = (strtotime($un->enc_feccie)-strtotime($fechaactual))/86400;            
             $json .= ",'" . addslashes($un->res_estado) . "'";
-            $json .= ",'" . addslashes(10) . "'";
-            $json .= ",'" . addslashes(0) . "'";
+            $json .= ",'" . addslashes($dias) . " d." . "'";
+            // Count
+            $contador = $this->estadoCuestionario($un->enc_id, $un->res_id);            
+            $json .= ",'" . addslashes($contador . " %") . "'";
+            
             $json .= ",'" . addslashes($un->usu_nombres . ' ' . $un->usu_apellidos) . "'";
+            $json .= ",'" . addslashes($un->usu_fono) . "'";
+            $json .= ",'" . addslashes($un->usu_email) . "'";
             $json .= "]}";
             $rc = true;
             $i++;
@@ -439,10 +487,15 @@ class respuestaController Extends baseController {
     }
 
     function view() {
+        // Valida parameter
         if (!VAR3) {
             die("Error del sistema 404");
         }
-
+        // Validar respuesta
+        if (!$this->validaRespuesta($_SESSION['USU_ID'], VAR3)){
+            Header("Location: " . PATH_DOMAIN . "/respuesta/index/");
+        }        
+        
         $this->respuesta = new tab_respuesta();
         $rows = $this->respuesta->dbselectByField("res_id", VAR3);
         $row = $rows[0];
@@ -1141,7 +1194,7 @@ class respuestaController Extends baseController {
         $nombre = $usuario->obtenerNombre($_SESSION ['USU_ID']);
         $email = $usuario->obtenerEmail($_SESSION ['USU_ID']);
         // Test
-        $email = "arseniocastellon@gmail.com";
+//        $email = "arseniocastellon@gmail.com";
         
         try {
             // Update cuestioning
@@ -1178,9 +1231,9 @@ class respuestaController Extends baseController {
             // Destinatary: (email, name optional)
             $mail->AddAddress($email, $nombre);  
             // CC
-            $mail->AddCC("ariel.blanco@planificacion.gob.bo");
+            $mail->AddCC("arsenio.castellon@planificacion.gob.bo");
             // BCC
-            $mail->AddBCC("arsenio.castellon@planificacion.gob.bo");
+            $mail->AddBCC("ariel.blanco@planificacion.gob.bo");
             // Reply to
             $mail->AddReplyTo('arsenio.castellon@planificacion.gob.bo','Arsenio Castellon');        
             // Remitente (email, name optional)
@@ -1212,6 +1265,72 @@ class respuestaController Extends baseController {
         
         
     }
+    
+    
+    function estadoCuestionario($enc_id, $res_id){
+        $contador = 0;
+        $total = 110;
+        $porcentaje = 0;
+        $this->respuesta = new tab_respuesta();
+        $sql = "SELECT
+                tab_encuesta.enc_id,
+                tab_respuesta.res_id,
+                tab_respuesta.res_codigo,
+                tab_enccampo.ecp_id,
+                tab_enccampo.ecp_orden,
+                tab_enccampo.ecp_nombre,
+                tab_enccampo.ecp_eti,
+                tab_rescampovalor.rcv_valor
+                FROM
+                tab_encuesta
+                INNER JOIN tab_respuesta ON tab_encuesta.enc_id = tab_respuesta.enc_id
+                INNER JOIN tab_enccampo ON tab_encuesta.enc_id = tab_enccampo.enc_id
+                INNER JOIN tab_rescampovalor ON tab_respuesta.res_id = tab_rescampovalor.res_id AND tab_enccampo.ecp_id = tab_rescampovalor.ecp_id 
+                WHERE tab_encuesta.enc_id = '$enc_id' 
+                AND tab_respuesta.res_id = '$res_id' ";
+        $rows = $this->respuesta->dbselectBySQL($sql);        
+        foreach ($rows as $row) {
+            if ($row->rcv_valor=="" || $row->rcv_valor==""){                
+            }else{
+                $contador++;
+            }
+        }
+        
+        $porcentaje = $contador/$total;
+        $porcentaje = ($this->redondear2($porcentaje)) * 100;
+        return $porcentaje;
+    }
+        
+    function redondear2($valor) { 
+       $float_redondeado=round($valor * 100) / 100; 
+       return $float_redondeado; 
+    }    
+    
+    
+    function validaRespuesta($usu_id, $res_id){
+        $flag = false;
+        
+        // Admin user
+        $usuario = new usuario();
+        if($usuario->esAdm()){
+           $flag=true;
+        }else{
+            $this->respuesta = new tab_respuesta();
+            $sql = "SELECT
+                    tab_encusuario.usu_id,
+                    tab_encusuario.res_id
+                    FROM
+                    tab_encusuario                
+                    WHERE tab_encusuario.usu_id = '$usu_id' 
+                    AND tab_encusuario.res_id = '$res_id' ";
+            $rows = $this->respuesta->dbselectBySQL($sql);        
+            if (count($rows) > 0) {
+                $flag=true;
+            }                    
+        }
+        return $flag;
+    }    
+    
 
 }
 

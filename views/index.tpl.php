@@ -20,7 +20,7 @@
             <div id="content">
                 <div id="main">
                     <div align="center"> <img src="<?php echo $PATH_WEB; ?>/css/logo.png"></div>                                        
-                    <div class="footer">Ministerio de Planificacion - DGGE<br />Sistema de Encuestas v.0.3</div>                    
+                    <div class="footer">Ministerio de Planificaci&oacute;n del Desarrollo<br />Direcci&oacute;n General de Gobierno Electr&oacute;nico<br />Sistema de Encuestas v.1.0</div>
                     <br/>
                     <div class="full_w">                        
                         <form method="post" action="<?php echo $PATH_DOMAIN; ?>/<?php echo $PATH_EVENT; ?>/">

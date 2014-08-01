@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 
 /* Establecer configuraci&oacute;n regional al espaniol */
 setlocale(LC_ALL, 'es_ES');
-
         
 /* * * define the site path ** */
 $site_path = realpath(dirname(__FILE__));
@@ -35,8 +34,8 @@ define("ROUNDED", "2");
 //define('PGHOST', '10.10.1.13');
 define('PGHOST', 'localhost');
 define('PGPORT', 5432);
-define('PGDATABASE', 'bd_encuesta2');
-define('PGUSER', 'encuesta');
+define('PGDATABASE', 'bd_encuesta');
+define('PGUSER', 'dgge');
 define('PGPASSWORD', 'qwerty');
 
 

@@ -63,18 +63,64 @@ class respuesta extends tab_respuesta {
     }    
 
     function estadoEncuesta($res_id) {
+        // Validar respuesta
         $sql = "SELECT COUNT(res_id)
                 FROM
                 tab_respuesta
                 WHERE
-                res_estado =  '2' 
+                res_estado = '1' 
                 AND tab_respuesta.res_id =  '$res_id' ";
         $num = $this->respuesta->countBySQL($sql);
-        if ($num > 0) {
-            return 'OK';
-        } else {
-            return false;
-        }
+        // Si estado es activo
+        if ($num == 1) {
+            // Verificar conteo
+            $contador = 0;
+            $this->respuesta = new tab_respuesta();
+            $sql = "SELECT
+                    tab_encuesta.enc_id,
+                    tab_respuesta.res_id,
+                    tab_respuesta.res_codigo,
+                    tab_enccampo.ecp_id,
+                    tab_enccampo.ecp_orden,
+                    tab_enccampo.ecp_nombre,
+                    tab_enccampo.ecp_eti,
+                    tab_rescampovalor.rcv_valor
+                    FROM
+                    tab_encuesta
+                    INNER JOIN tab_respuesta ON tab_encuesta.enc_id = tab_respuesta.enc_id
+                    INNER JOIN tab_enccampo ON tab_encuesta.enc_id = tab_enccampo.enc_id
+                    INNER JOIN tab_rescampovalor ON tab_respuesta.res_id = tab_rescampovalor.res_id AND tab_enccampo.ecp_id = tab_rescampovalor.ecp_id 
+                    WHERE tab_respuesta.res_id = '$res_id' ";
+            $rows = $this->respuesta->dbselectBySQL($sql);        
+            foreach ($rows as $row) {
+                if ($row->rcv_valor=="" || $row->rcv_valor==""){                
+                }else{
+                    $contador++;
+                }
+            }
+            if ($contador >= 106){
+                return false;
+            }else{
+                return 'COMPLETAR';
+            }
+            //
+        }else{
+            // Verificar cierre
+            $sql = "SELECT COUNT(res_id)
+                    FROM
+                    tab_respuesta
+                    WHERE
+                    res_estado = '2' 
+                    AND tab_respuesta.res_id =  '$res_id' ";
+            $num = $this->respuesta->countBySQL($sql);
+            if ($num > 0) {
+                return 'OK';
+            } else {
+                return false;
+            }            
+        }     
+        
+
     }    
 
     function contRespuestas() {

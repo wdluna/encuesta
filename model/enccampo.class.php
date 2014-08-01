@@ -374,6 +374,10 @@ class enccampo extends tab_enccampo {
         return $option;
     }
 
+    
+    
+    
+    
     function obtenerSelectCamposEdit($enc_id = null, $res_id = null) {
         $this->enccampolista = new tab_enccampolista();
         $sql = "SELECT
@@ -386,7 +390,8 @@ class enccampo extends tab_enccampo {
                 tab_enccampo.ecp_eti,
                 tab_enccampo.ecp_tipdat,
                 tab_enccampo.ecp_estado,
-                tab_enccampo.ecp_nombre
+                tab_enccampo.ecp_nombre,
+                tab_enccampo.ecp_obl
                 FROM
                 tab_enccampo
                 INNER JOIN tab_encgrupo ON tab_enccampo.egr_id = tab_encgrupo.egr_id
@@ -449,9 +454,13 @@ class enccampo extends tab_enccampo {
             if ($val->ecp_tipdat == 'Etiqueta') {
                 $option .="<tr><td colspan='4'>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
                 $option .="</tr>";
-                
+            
             } else if ($val->ecp_tipdat == 'Lista') {
-                $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                if ($val->ecp_obl==1){
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "<span class='error-requerid'>(*)</span></td>";
+                }else{
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                }
                 $option .= "<td colspan='3'>
                     <select name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' title='" . $val->ecp_nombre . "' class=''>
                     <option value=''>(seleccionar)</option>";
@@ -505,7 +514,11 @@ class enccampo extends tab_enccampo {
 				
             // CheckBox
             } else if ($val->ecp_tipdat == 'CheckBox') {
-                $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                if ($val->ecp_obl==1){
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "<span class='error-requerid'>(*)</span></td>";
+                }else{
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                }
                 $option .= "<td colspan='3'>";
 
                 // CheckBox
@@ -640,7 +653,11 @@ class enccampo extends tab_enccampo {
             
             // RadioButton
             } else if ($val->ecp_tipdat == 'RadioButton') {
-                $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                if ($val->ecp_obl==1){
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "<span class='error-requerid'>(*)</span></td>";
+                }else{
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                }
                 $option .= "<td colspan='3'>";
 
                 // Lista
@@ -718,10 +735,22 @@ class enccampo extends tab_enccampo {
                 if (isset($row5[0]->rcv_valor)) {
                     $valor = $row5[0]->rcv_valor;
                 } else {
-                    $valor = "";
+                    if ($val->ecp_tipdat == 'Numero' || $val->ecp_tipdat == 'Decimal'){
+//                        $valor = "0";
+                        $valor = "";
+                    }else{
+                        $valor = "";
+                    }
                 }
+                
+                
+                
                 // Campo
-                $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                if ($val->ecp_obl==1){
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "<span class='error-requerid'>(*)</span></td>";
+                }else{
+                    $option .="<tr><td>" . $val->egr_codigo . DELIMITER . $val->ecp_orden . " " . $val->ecp_eti . "</td>";
+                }
                 if ($val->ecp_tipdat == 'Texto') {
                     $option .="<td colspan='3'>
                               <input name='" . $val->ecp_id . "' id='" . $val->ecp_id . "' value='" . $valor . "' type='text'

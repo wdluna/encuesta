@@ -27,7 +27,7 @@
     <strong style="color: red" align="left"><?php echo $msm ?></strong>
 	
     <table border="0" width="100%">
-        <caption class="titulo">FORMULARIO DE ENCUESTA</caption>
+        <caption class="titulo">FORMULARIO DE ENCUESTA - <span class='error-requerid'>(*)</span> Campos requeridos</caption>
 
             <tr>
                 <td>Entidad/Unidad:</td>
@@ -41,7 +41,7 @@
                 <td>
                     <select name="enc_id" id="enc_id" class="required">
                         <?php echo $encuesta; ?>
-                    </select> <span class="error-requerid">*</span>
+                    </select> 
                 </td>
             </tr>
 

@@ -30,39 +30,39 @@
 
 <script type="text/javascript">
     
-    
-    $("#flex1").flexigrid
-    ({
-        url: '<?php echo $PATH_DOMAIN ?>/respuesta/loadSerie/<?php echo $enc_id; ?>/',
-        dataType: 'json',
-        colModel: [
-            {display: 'Id', name: 'enc_id', width: GetColumnSize(3), sortable: true, align: 'center'},
-            {display: 'C&oacute;digo', name: 'enc_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},
-            {display: 'Unidad', name: 'uni_descripcion', width: GetColumnSize(10), sortable: true, align: 'left'},
-            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(60), sortable: true, align: 'left'},
-            {display: 'Fec. Pub.', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
-            {display: 'Fec.Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
-        ],  
-        buttons: [
-            {name: 'Seleccionar encuesta', bclass: 'save1', onpress: test}, 
-        ],
-        searchitems: [
-            {display: 'Id', name: 'enc_id', isdefault: true},  
-            {display: 'Unidad', name: 'uni_descripcion'},
-            {display: 'Encuesta', name: 'enc_categoria'}
-        ],
-        sortname: "",
-        sortorder: "asc",
-        usepager: true,
-        title: "LISTA DE ENCUESTAS HABILITADAS PARA EL USUARIO",
-        useRp: true,
-        rp: 5,
-        minimize: <?php echo $GRID_SW ?>,
-        showTableToggleBtn: true,
-        width: "100%",
-        height: 60,
-        autoload: true
-    });
+//    
+//    $("#flex1").flexigrid
+//    ({
+//        url: '<?php echo $PATH_DOMAIN ?>/respuesta/loadSerie/<?php echo $enc_id; ?>/',
+//        dataType: 'json',
+//        colModel: [
+//            {display: 'Id', name: 'enc_id', width: GetColumnSize(3), sortable: true, align: 'center'},
+//            {display: 'C&oacute;digo', name: 'enc_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},
+//            {display: 'Unidad', name: 'uni_descripcion', width: GetColumnSize(10), sortable: true, align: 'left'},
+//            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(60), sortable: true, align: 'left'},
+//            {display: 'Fec. Pub.', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
+//            {display: 'Fec.Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
+//        ],  
+//        buttons: [
+//            {name: 'Seleccionar encuesta', bclass: 'save1', onpress: test}, 
+//        ],
+//        searchitems: [
+//            {display: 'Id', name: 'enc_id', isdefault: true},  
+//            {display: 'Unidad', name: 'uni_descripcion'},
+//            {display: 'Encuesta', name: 'enc_categoria'}
+//        ],
+//        sortname: "",
+//        sortorder: "asc",
+//        usepager: true,
+//        title: "LISTA DE ENCUESTAS HABILITADAS PARA EL USUARIO",
+//        useRp: true,
+//        rp: 5,
+//        minimize: <?php echo $GRID_SW ?>,
+//        showTableToggleBtn: true,
+//        width: "100%",
+//        height: 60,
+//        autoload: true
+//    });
 
     $("#flex2").flexigrid
     ({
@@ -71,14 +71,16 @@
         colModel: [
             {display: 'Id', name: 'res_id', width: GetColumnSize(3), sortable: true, align: 'center'},
 //            {display: 'C&oacute;digo', name: 'res_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},            
-            {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(12), sortable: true, align: 'left'},   
-            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(20), sortable: true, align: 'left'},  
+            {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(17), sortable: true, align: 'left'},   
+            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(15), sortable: true, align: 'left'},  
             {display: 'Fec. Pub. ', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Fec.Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
-            {display: 'Estado', name: 'res_estado', width: GetColumnSize(10), sortable: true, align: 'left'},            
-            {display: 'Dias (faltantes)', name: 'dias', width: GetColumnSize(12), sortable: true, align: 'left'},
-            {display: 'Avance (%)', name: 'avance', width: GetColumnSize(10), sortable: true, align: 'left'},
-            {display: 'Encargado', name: 'encargado', width: GetColumnSize(15), sortable: true, align: 'left'}
+            {display: 'Estado', name: 'res_estado', width: GetColumnSize(8), sortable: true, align: 'left'},            
+            {display: 'Faltan', name: 'dias', width: GetColumnSize(5), sortable: true, align: 'right'},
+            {display: 'Avance', name: 'avance', width: GetColumnSize(6), sortable: true, align: 'right'},
+            {display: 'Encargado', name: 'encargado', width: GetColumnSize(15), sortable: true, align: 'left'},
+            {display: 'Tel.', name: 'usu_fono', width: GetColumnSize(10), sortable: true, align: 'left'},
+            {display: 'Mail', name: 'usu_mail', width: GetColumnSize(35), sortable: true, align: 'left'}
         ],
         buttons: [
             <?php if ($total==0) { ?>            
@@ -94,21 +96,21 @@
         ],
         searchitems: [
             {display: 'Id', name: 'res_id', isdefault: true},            
-            {display: 'Unidad', name: 'uni_descripcion'},
+            {display: 'Entidad/Unidad', name: 'uni_descripcion'},
             {display: 'Encuesta', name: 'enc_categoria'},
-            {display: 'Respuesta', name: 'res_titulo'},
-            {display: 'Custodio', name: 'encargado'}
+            {display: 'Encargado', name: 'encargado'},
+            {display: 'Estado', name: 'res_estado'},
         ],
         sortname: "",
         sortorder: "asc",
         usepager: true,
-        title: 'LISTA DE ENCUESTAS REGISTRADAS POR EL USUARIO',
+        title: 'LISTA DE ENCUESTAS REGISTRADAS PARA EL USUARIO',
         useRp: true,
-        rp: 10,
+        rp: 15,
         minimize: <?php echo $GRID_SW ?>,
         showTableToggleBtn: true,
         width: "100%",
-        height: 280,
+        height: 400,
         autoload: true
     });
 
@@ -122,9 +124,21 @@
             }            
             
             if ($("table", grid).attr('id') == "flex2") {
-                $("#res_id").val($('.trSelected div', grid).html());
-                $("#formA").attr("action", "<?php echo $PATH_DOMAIN ?>/respuesta/edit/");
-                document.getElementById('formA').submit();
+                
+                
+                $.post("<?php echo $PATH_DOMAIN ?>/respuesta/verificaEstado/",{res_id:$('.trSelected div',grid).html(),rand:Math.random() } ,function(data){
+                    if (data == 'OK') {
+                        alert("No puede editar la encuesta. Ya se cerró la misma");
+                    } else {
+                        $("#res_id").val($('.trSelected div', grid).html());
+                        $("#formA").attr("action", "<?php echo $PATH_DOMAIN ?>/respuesta/edit/");
+                        document.getElementById('formA').submit();
+                    }
+                });                
+                
+//                $("#res_id").val($('.trSelected div', grid).html());
+//                $("#formA").attr("action", "<?php echo $PATH_DOMAIN ?>/respuesta/edit/");
+//                document.getElementById('formA').submit();
             }
             
         }
@@ -212,8 +226,10 @@
             $.post("<?php echo $PATH_DOMAIN ?>/respuesta/verificaEstado/",{res_id:$('.trSelected div',grid).html(),rand:Math.random() } ,function(data){
                 if (data == 'OK') {
                     alert("Ya se cerró la encuesta");
+                }else if (data == 'COMPLETAR') {
+                    alert("Para cerrar la encuesta debe completar todas las preguntas obligatorias. Revise por favor el formulario.");                   
                 } else {
-                    if (confirm('Esta seguro de cerrar la encuesta con Id. ' + $('.trSelected div', grid).html() + ' ? Ya no podrá modificar la misma luego de esta acción.')){
+                    if (confirm('Esta seguro de cerrar la encuesta ? Ya no podrá agregar o modificar respuestas de la misma luego de esta acción.')){
                         if ($('.trSelected div', grid).html()) {
                             $("#res_id").val($('.trSelected div', grid).html());
                             $("#formA").attr("action", "<?php echo $PATH_DOMAIN ?>/respuesta/sendMail/");
