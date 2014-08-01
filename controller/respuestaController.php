@@ -197,7 +197,15 @@ class respuestaController Extends baseController {
                 $where .= " and tab_respuesta.res_id = '$query' ";
             elseif ($qtype == 'res_titulo')
                 $where .= " and tab_respuesta.res_titulo LIKE '%$query%' ";
-            elseif ($qtype == 'uni_descripcion')
+            elseif ($qtype == 'res_estado'){
+                $estado;
+                if ($query=='ABIERTA') {
+                    $estado=1;
+                }else{
+                    $estado=2;
+                }
+                $where .= " and tab_respuesta.res_estado = '$estado' ";
+            }elseif ($qtype == 'uni_descripcion')
                 $where .= " and tab_unidad.uni_codigo LIKE '%$query%' ";
             elseif ($qtype == 'encargado') {
                 $nomArray = explode(" ", $query);
@@ -491,10 +499,12 @@ class respuestaController Extends baseController {
         if (!VAR3) {
             die("Error del sistema 404");
         }
-        // Validar respuesta
+        // Validar usuario respuesta y estado
         if (!$this->validaRespuesta($_SESSION['USU_ID'], VAR3)){
             Header("Location: " . PATH_DOMAIN . "/respuesta/index/");
         }        
+        
+        
         
         $this->respuesta = new tab_respuesta();
         $rows = $this->respuesta->dbselectByField("res_id", VAR3);
@@ -1325,13 +1335,24 @@ class respuestaController Extends baseController {
                     AND tab_encusuario.res_id = '$res_id' ";
             $rows = $this->respuesta->dbselectBySQL($sql);        
             if (count($rows) > 0) {
-                $flag=true;
+                // Status
+                $sql = "SELECT
+                        tab_respuesta.res_id
+                        FROM
+                        tab_respuesta
+                        WHERE tab_respuesta.res_id = '$res_id' 
+                        AND tab_respuesta.res_estado = '1' ";
+                $rows = $this->respuesta->dbselectBySQL($sql);        
+                if (count($rows) > 0) {
+                    $flag=true;
+                }else{
+                    $flag=false;
+                }                
             }                    
         }
         return $flag;
     }    
     
-
 }
 
 ?>
