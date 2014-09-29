@@ -103,9 +103,14 @@
         }
         else if (com=='Reenviar correo'){
             if($('.trSelected div',grid).html()){
-                $("#usu_id").val($('.trSelected div',grid).html());
-                $("#formA").attr("action","<?php echo $PATH_DOMAIN ?>/usuario/forwarding/");
-                document.getElementById('formA').submit();
+                
+                if(confirm('Se va a reenviar un correo al usuario elegido con sus credenciales de acceso. Desea continuar?')){                
+                    $("#usu_id").val($('.trSelected div',grid).html());
+                    $("#formA").attr("action","<?php echo $PATH_DOMAIN ?>/usuario/forwarding/");
+                    document.getElementById('formA').submit();
+                }
+                
+                
             }
             else{
                 alert("Por favor, seleccione un registro");

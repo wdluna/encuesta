@@ -269,10 +269,10 @@ class usuarioController Extends baseController {
             
             // CC
 //            $mail->AddCC("ariel.blanco@planificacion.gob.bo");
-            $mail->AddCC("arsenio.castellon@planificacion.gob.bo");
+            $mail->AddCC("ariel.blanco@planificacion.gob.bo");
             // BCC
 //            $mail->AddBCC("arsenio.castellon@planificacion.gob.bo");
-            $mail->AddBCC("ariel.blanco@planificacion.gob.bo");
+            $mail->AddBCC("arsenio.castellon@planificacion.gob.bo");
             // Reply to
             $mail->AddReplyTo('arsenio.castellon@planificacion.gob.bo','Arsenio Castellon');        
             // Remitente (email, name optional)
@@ -301,7 +301,7 @@ class usuarioController Extends baseController {
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
                 $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
                         . "<br><br>Como es de su conocimiento la Direcci&oacute;n General de Gobierno Electr&oacute;nico esta realizando el relevamiento de informaci&oacute;n respecto de Gobierno Electr&oacute;nico, Software libre y Est&aacute;ndares Abiertos en el marco de la Ley Nro. 164 de 8 de agosto de 2011 y del D.S. 1793 del 13 de noviembre de 2013."
-                        . "<br>Por ello retomamos el contacto y nos dirigimos a usted como delegado designado por su autoridad en el proceso anterior respecto del formulario de Gobierno Electr&oacute;nico, ahora solicitando su colaboraci&oacute;n y disponibilidad para el desarrollo del llenado del formulario electr&oacute;nico en la tem&aacute;tica de Software Libre y Est&aacute;ndares Abiertos. La herramienta electr&oacute;nica estar&aacute; en l&iacute;nea del 30 de julio al 13 de agosto de la presente gesti&oacute;n ineludiblemente, de manera que solicitamos sea diligenciado en el marco de las fechas especificadas."
+                        . "<br>Por ello retomamos el contacto y nos dirigimos a usted como delegado designado por su autoridad en el proceso anterior respecto del formulario de Gobierno Electr&oacute;nico, ahora solicitando su colaboraci&oacute;n y disponibilidad para el desarrollo del llenado del formulario electr&oacute;nico en la tem&aacute;tica de Software Libre y Est&aacute;ndares Abiertos. La herramienta electr&oacute;nica estar&aacute; en l&iacute;nea del 30 de julio al Viernes 22 de agosto de la presente gesti&oacute;n, de manera que solicitamos sea diligenciado en el marco de las fechas especificadas."
                         . "<br><br>La direcci&oacute;n para el llenado del formulario electr&oacute;nico del Sistema de Encuestas de la DGEE - Ministerio de Planificaci&oacute;n es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
@@ -409,7 +409,11 @@ class usuarioController Extends baseController {
         $this->usuario->setUsu_nombres(strtoupper(trim($_REQUEST['usu_nombres'])));
         $this->usuario->setUsu_apellidos(strtoupper(trim($_REQUEST['usu_apellidos'])));
         $this->usuario->setUsu_iniciales(trim('AA'));
-        $this->usuario->setUsu_fono(trim($_REQUEST['usu_fono']));
+        if ($_REQUEST['usu_fono']){
+            $this->usuario->setUsu_fono(trim($_REQUEST['usu_fono']));
+        }else{
+            $this->usuario->setUsu_fono('0');   
+        }
         $this->usuario->setUsu_email(trim($_REQUEST['usu_email']));
         if ($_REQUEST['usu_pass'] != '')
             $this->usuario->setUsu_pass(md5(trim($_REQUEST['usu_pass'])));
@@ -471,7 +475,7 @@ class usuarioController Extends baseController {
         $nombre = $row->usu_nombres . " " . $row->usu_apellidos;
         $email = $row->usu_email;
         $encuesta = new encuesta ();
-        $nombreEncuesta = "";
+        $nombreEncuesta = $encuesta->obtenerEncuestaUsuario($_REQUEST['usu_id']);
 //        // Test
 //        $email = "ariel.blanco@planificacion.gob.bo";
         
@@ -506,19 +510,19 @@ class usuarioController Extends baseController {
             
             // CC
 //            $mail->AddCC("ariel.blanco@planificacion.gob.bo");
-            $mail->AddCC("arsenio.castellon@planificacion.gob.bo");
+            $mail->AddCC("ariel.blanco@planificacion.gob.bo");
             // BCC
 //            $mail->AddBCC("arsenio.castellon@planificacion.gob.bo");
-            $mail->AddBCC("ariel.blanco@planificacion.gob.bo");
+            $mail->AddBCC("arsenio.castellon@planificacion.gob.bo");
             // Reply to
             $mail->AddReplyTo('arsenio.castellon@planificacion.gob.bo','DIRECCION GENERAL DE GOBIERNO ELECTRONICO');        
             // Remitente (email, name optional)
             $mail->SetFrom('arsenio.castellon@planificacion.gob.bo', 'DIRECCION GENERAL DE GOBIERNO ELECTRONICO');
             // Attachmail
             $mail->AddAttachment("Manual_Usuario_Encuesta_Software Libre.pdf");            
-            // Subject email            
-            if ($row->rol_id == 1){
-                $mail->Subject = 'Cuenta de correo para administrar el Sistema de Encuestas de la DGGE - Ministerio de Planificación del Desarrollo';
+            // Subject email
+            if ($_REQUEST['usu_rol_id'] == 1){
+                $mail->Subject = 'Creacion de cuenta para administrar el Sistema de Encuestas de la DGGE - Ministerio de Planificación del Desarrollo';
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
                 $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
@@ -537,16 +541,18 @@ class usuarioController Extends baseController {
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
                 $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
                         . "<br><br>Como es de su conocimiento la Direcci&oacute;n General de Gobierno Electr&oacute;nico esta realizando el relevamiento de informaci&oacute;n respecto de Gobierno Electr&oacute;nico, Software libre y Est&aacute;ndares Abiertos en el marco de la Ley Nro. 164 de 8 de agosto de 2011 y del D.S. 1793 del 13 de noviembre de 2013."
-                        . "<br>Por ello retomamos el contacto y nos dirigimos a usted como delegado designado por su autoridad en el proceso anterior respecto del formulario de Gobierno Electr&oacute;nico, ahora solicitando su colaboraci&oacute;n y disponibilidad para el desarrollo del llenado del formulario electr&oacute;nico en la tem&aacute;tica de Software Libre y Est&aacute;ndares Abiertos. La herramienta electr&oacute;nica estar&aacute; en l&iacute;nea del 30 de julio al 13 de agosto de la presente gesti&oacute;n ineludiblemente, de manera que solicitamos sea diligenciado en el marco de las fechas especificadas."
+                        . "<br>Por ello retomamos el contacto y nos dirigimos a usted como delegado designado por su autoridad en el proceso anterior respecto del formulario de Gobierno Electr&oacute;nico, ahora solicitando su colaboraci&oacute;n y disponibilidad para el desarrollo del llenado del formulario electr&oacute;nico en la tem&aacute;tica de Software Libre y Est&aacute;ndares Abiertos. La herramienta electr&oacute;nica estar&aacute; en l&iacute;nea del 30 de julio al Viernes 22 de agosto de la presente gesti&oacute;n, de manera que solicitamos sea diligenciado en el marco de las fechas especificadas."
                         . "<br><br>La direcci&oacute;n para el llenado del formulario electr&oacute;nico del Sistema de Encuestas de la DGEE - Ministerio de Planificaci&oacute;n es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
-                        . "<br>Usuario: " . $_REQUEST['usu_login']
-                        . "<br>Password: " . $_REQUEST['usu_pass']
+                        . "<br>Usuario: " . $row->usu_login
+                        . "<br>Password: " . $row->usu_login
                         . "<br><br>Se adjunta Manual de Usuario del Sistema de Encuestas." 
                         . "<br><br>Favor de contactarse con el Lic. Ariel Blanco a la siguiente direcci&oacute;n de correo electr&oacute;nico <a href='mailto:ariel.blanco@planificacion.gob.bo'>ariel.blanco@planificacion.gob.bo</a> o <a href='mailto:arsenio.castellon@planificacion.gob.bo'>arsenio.castellon@planificacion.gob.bo</a> para recibir las orientaciones sobre el llenado del formulario."
                         . "<br><br>A la espera de su pronta respuesta y seguros de contar con su valiosa colaboraci&oacute;n, saludo a usted atentamente."
-                        . "<br>Direcci&oacute;n General de Gobierno Electr&oacute;nico");                
+                        . "<br>Direcci&oacute;n General de Gobierno Electr&oacute;nico");
+
+                
             }
 
             // Alternate for block

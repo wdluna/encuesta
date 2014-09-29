@@ -176,7 +176,17 @@ class respuestaController Extends baseController {
             $sortname = " tab_encuesta.enc_id,
                 tab_respuesta.res_id ";
         } else {
-            $sortname = $sortname;
+            if ($sortname=='encargado'){
+                $sortname = " tab_usuario.usu_nombres, tab_usuario.usu_apellidos ";
+            }else if ($sortname=='dias'){
+                $sortname = " tab_encuesta.enc_id,
+                tab_respuesta.res_id ";
+            }else if ($sortname=='avance'){
+                $sortname = " tab_encuesta.enc_id,
+                tab_respuesta.res_id ";
+            }else {
+                $sortname = $sortname;
+            }
         }
         if (!$sortorder)
             $sortorder = 'desc';
@@ -319,14 +329,24 @@ class respuestaController Extends baseController {
         $json .= "rows: [";
         $rc = false;
         $i = 0;
+        
+        
         foreach ($result as $un) {
+            // Count
+            $contador = $this->estadoCuestionario($un->enc_id, $un->res_id);            
+            
             if ($rc)
                 $json .= ",";
             $json .= "\n{";
             $json .= "id:'" . $un->res_id . "',";
-            $json .= "cell:['" . $un->res_id . "'";            
-//            $json .= ",'" . addslashes($un->res_codigo) . "'";
-            $json .= ",'" . addslashes($un->uni_codigo) . "'";
+            
+//            if ($contador == 0){
+//                $json .= "cell:['" . '<font color=#B22222>' . $un->res_id . "'";
+//                $json .= ",'<font color=#B22222>" . addslashes($un->uni_descripcion) . "'";
+//            }else{
+                $json .= "cell:['" . $un->res_id . "'";            
+                $json .= ",'" . addslashes($un->uni_descripcion) . "'";
+//            }           
             $json .= ",'" . addslashes($un->enc_categoria) . "'";  
             $json .= ",'" . addslashes($un->enc_fecpub) . "'";
             $json .= ",'" . addslashes($un->enc_feccie) . "'";
@@ -335,9 +355,12 @@ class respuestaController Extends baseController {
             $dias = (strtotime($un->enc_feccie)-strtotime($fechaactual))/86400;            
             $json .= ",'" . addslashes($un->res_estado) . "'";
             $json .= ",'" . addslashes($dias) . " d." . "'";
-            // Count
-            $contador = $this->estadoCuestionario($un->enc_id, $un->res_id);            
-            $json .= ",'" . addslashes($contador . " %") . "'";
+            
+//            if ($contador == 0){
+//                $json .= ",'<font color=#B22222>" . addslashes($contador) . " %" . "'";
+//            }else{
+                $json .= ",'" . addslashes($contador) . " %" . "'";
+//            }
             
             $json .= ",'" . addslashes($un->usu_nombres . ' ' . $un->usu_apellidos) . "'";
             $json .= ",'" . addslashes($un->usu_fono) . "'";
@@ -714,6 +737,7 @@ class respuestaController Extends baseController {
                         $this->rescampovalor = new tab_rescampovalor();
                         $this->rescampovalor->setRes_id($res_id);
                         $this->rescampovalor->setEcp_id($ecp_id);
+                        $this->rescampovalor->setEcl_id(0);
                         $this->rescampovalor->setRcv_valor($rcv_valor);
                         $this->rescampovalor->setRcv_estado(1);
                         $this->rescampovalor->insert();
@@ -722,9 +746,10 @@ class respuestaController Extends baseController {
                         $this->rescampovalor->setRcv_id($rcv_id);
                         $this->rescampovalor->setRes_id($res_id);
                         $this->rescampovalor->setEcp_id($ecp_id);
+                        $this->rescampovalor->setEcl_id(0);
                         $this->rescampovalor->setRcv_valor($rcv_valor);
                         $this->rescampovalor->setRcv_estado(1);
-                        $this->rescampovalor->update();
+                        $this->rescampovalor->update2();
                     }
                 }
             }
@@ -772,20 +797,42 @@ class respuestaController Extends baseController {
                 tab_encuesta.enc_categoria,
                 tab_respuesta.res_id,
                 tab_respuesta.enc_id,
-                tab_respuesta.res_titulo,                
+                tab_respuesta.res_titulo,
                 tab_respuesta.res_codigo,
                 tab_respuesta.res_estado
                 FROM
-                tab_unidad
-                INNER JOIN tab_encuesta ON tab_unidad.uni_id = tab_encuesta.uni_id
+                tab_encuesta
                 INNER JOIN tab_respuesta ON tab_encuesta.enc_id = tab_respuesta.enc_id
                 INNER JOIN tab_encusuario ON tab_respuesta.res_id = tab_encusuario.res_id
-                WHERE tab_unidad.uni_estado = 1
-                AND tab_encuesta.enc_estado = 1
-                AND (tab_respuesta.res_estado = 1 OR tab_respuesta.res_estado = 2)
-                AND tab_encusuario.eus_estado = 1
+                INNER JOIN tab_usuario ON tab_usuario.usu_id = tab_encusuario.usu_id
+                INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_usuario.uni_id
+                WHERE
+                tab_encuesta.enc_estado = 1 AND
+                (tab_respuesta.res_estado = 1 OR
+                tab_respuesta.res_estado = 2) AND
+                tab_encusuario.eus_estado = 1
                 AND tab_respuesta.res_id = '$res_id'
                 $where ";
+        
+//        $sql = "SELECT
+//                tab_unidad.uni_descripcion,
+//                tab_encuesta.enc_categoria,
+//                tab_respuesta.res_id,
+//                tab_respuesta.enc_id,
+//                tab_respuesta.res_titulo,                
+//                tab_respuesta.res_codigo,
+//                tab_respuesta.res_estado
+//                FROM
+//                tab_unidad
+//                INNER JOIN tab_encuesta ON tab_unidad.uni_id = tab_encuesta.uni_id
+//                INNER JOIN tab_respuesta ON tab_encuesta.enc_id = tab_respuesta.enc_id
+//                INNER JOIN tab_encusuario ON tab_respuesta.res_id = tab_encusuario.res_id
+//                WHERE tab_unidad.uni_estado = 1
+//                AND tab_encuesta.enc_estado = 1
+//                AND (tab_respuesta.res_estado = 1 OR tab_respuesta.res_estado = 2)
+//                AND tab_encusuario.eus_estado = 1
+//                AND tab_respuesta.res_id = '$res_id'
+//                $where ";
         $result = $this->respuesta->dbSelectBySQL($sql); 
         $this->usuario = new usuario ();
 
@@ -803,7 +850,7 @@ class respuestaController Extends baseController {
 //        aumentado
         $pdf->SetKeywords('DGGE, Sistema de Encuestas');
         // set default header data
-        $pdf->SetHeaderData('logo.png', 20, 'MINISTERIO DE PLANIFICACION DEL DESARROLLO', 'DGGE');
+        $pdf->SetHeaderData('logo.png', 20, 'MINISTERIO DE PLANIFICACION DEL DESARROLLO', 'Dirección General de Gobierno Electrónico');
         // set header and footer fonts
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
@@ -829,10 +876,8 @@ class respuestaController Extends baseController {
         foreach ($result as $fila) {
             $cadena .= '<tr><td align="left"><b>Datos de la instituci&oacute;n:</b> ' . "" . '</td></tr>';
             $cadena .= '<tr><td align="left"><b>Id: </b>' . $fila->res_id . '</td></tr>';
-            $cadena .= '<tr><td align="left"><b>C&oacute;digo: </b>' . $fila->res_codigo . '</td></tr>';
             $cadena .= '<tr><td align="left"><b>Unidad:</b> ' . $fila->uni_descripcion . '</td></tr>';
             $cadena .= '<tr><td align="left"><b>Encuesta:</b> ' . $fila->enc_categoria . '</td></tr>';
-            $cadena .= '<tr><td align="left"><b>T&iacute;tulo:</b> <b>' . $fila->res_titulo . '</b></td></tr>';
             
             $cadena .= '<tr><td align="left"><b>Datos de la encuesta:</b> ' . "" . '</td></tr>';
             // Include dynamic fields
@@ -1202,7 +1247,9 @@ class respuestaController Extends baseController {
         $encuesta = $respuesta->obtenerEncuestaNombre($res_id);
         $usuario = new usuario ();
         $nombre = $usuario->obtenerNombre($_SESSION ['USU_ID']);
+        $unidad = $usuario->obtenerUnidad($_SESSION ['USU_ID']);
         $email = $usuario->obtenerEmail($_SESSION ['USU_ID']);
+        
         // Test
 //        $email = "arseniocastellon@gmail.com";
         
@@ -1241,9 +1288,9 @@ class respuestaController Extends baseController {
             // Destinatary: (email, name optional)
             $mail->AddAddress($email, $nombre);  
             // CC
-            $mail->AddCC("arsenio.castellon@planificacion.gob.bo");
+            $mail->AddCC("ariel.blanco@planificacion.gob.bo");
             // BCC
-            $mail->AddBCC("ariel.blanco@planificacion.gob.bo");
+            $mail->AddBCC("arsenio.castellon@planificacion.gob.bo");
             // Reply to
             $mail->AddReplyTo('arsenio.castellon@planificacion.gob.bo','Arsenio Castellon');        
             // Remitente (email, name optional)
@@ -1252,7 +1299,9 @@ class respuestaController Extends baseController {
             $mail->Subject = 'Confirmacion cierre: ' . $encuesta;
             // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
-            $mail->MsgHTML("Confirmamos el cierre de la encuesta mencionada en la referencia.<br><b>" . $nombre . "</b>");
+            $mail->MsgHTML("Confirmamos el cierre de la encuesta mencionada en la referencia.<br>"
+                        . "<br><b>Usuario: "  . $nombre . "</b>"
+                        . "<br><b>Entidad: "  . $unidad . "</b>");
             // Alternate for block
             $mail->AltBody = 'This is a plain-text message body';
             // Send mail
@@ -1279,6 +1328,8 @@ class respuestaController Extends baseController {
     
     function estadoCuestionario($enc_id, $res_id){
         $contador = 0;
+        // Contador 
+        // total = 107; preguntas obligatorias
         $total = 110;
         $porcentaje = 0;
         $this->respuesta = new tab_respuesta();

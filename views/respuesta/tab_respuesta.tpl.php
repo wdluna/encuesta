@@ -44,7 +44,7 @@
                     </select> 
                 </td>
             </tr>
-
+            
             <tr>
                 <td></td>
                 <td>
@@ -70,7 +70,17 @@
                                    class="required alphanum" 
                                    title="En este campo se debe registrar el t&iacute;tulo del encuesta." />                       
                 </td>
+            </tr>
+            
+            <tr>
+                <td>                                        
+                </td>
+                <td align="right">
+                    <input id="btnSub3" type="button" value="Guardar" class="button" />                    
+                </td>                
+                
             </tr>            
+            
     </table>
 
     
@@ -84,7 +94,7 @@
     <tr id="tr-botones">
         <td colspan="10" class="botones">
             <input type="hidden" name="accion" id="accion" value="guardar" />
-            <!--<input id="btnSub3" type="button" value="Guardar" class="button" />--> 
+            <input id="btnSub3" type="button" value="Guardar" class="button" /> 
             <!--<input id="btnSubB" type="button" value="Guardar y Nuevo" class="button2" />-->             
             <input id="btnSub" type="button" value="Guardar y salir" class="button2" />             
             <input name="cancelar" id="cancelar" type="button" class="button" value="Cancelar" />

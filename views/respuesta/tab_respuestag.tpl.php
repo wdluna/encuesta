@@ -71,16 +71,16 @@
         colModel: [
             {display: 'Id', name: 'res_id', width: GetColumnSize(3), sortable: true, align: 'center'},
 //            {display: 'C&oacute;digo', name: 'res_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},            
-            {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(17), sortable: true, align: 'left'},   
-            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(15), sortable: true, align: 'left'},  
-            {display: 'Fec. Pub. ', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
+            {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(25), sortable: true, align: 'left'},   
+            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(10), sortable: true, align: 'left'},  
+            {display: 'Fec. Pub.', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Fec.Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Estado', name: 'res_estado', width: GetColumnSize(8), sortable: true, align: 'left'},            
             {display: 'Faltan', name: 'dias', width: GetColumnSize(5), sortable: true, align: 'right'},
-            {display: 'Avance', name: 'avance', width: GetColumnSize(6), sortable: true, align: 'right'},
+            {display: 'Avance (%)', name: 'avance', width: GetColumnSize(10), sortable: true, align: 'right'},
             {display: 'Encargado', name: 'encargado', width: GetColumnSize(15), sortable: true, align: 'left'},
             {display: 'Tel.', name: 'usu_fono', width: GetColumnSize(10), sortable: true, align: 'left'},
-            {display: 'Mail', name: 'usu_mail', width: GetColumnSize(35), sortable: true, align: 'left'}
+            {display: 'Mail', name: 'usu_email', width: GetColumnSize(35), sortable: true, align: 'left'}
         ],
         buttons: [
             <?php if ($total==0) { ?>            
@@ -97,9 +97,15 @@
         searchitems: [
             {display: 'Id', name: 'res_id', isdefault: true},            
             {display: 'Entidad/Unidad', name: 'uni_descripcion'},
+            {display: 'Fec. Pub.', name: 'enc_fecpub'},
+            {display: 'Fec.Cierre', name: 'enc_feccie'},
             {display: 'Encuesta', name: 'enc_categoria'},
             {display: 'Encargado', name: 'encargado'},
             {display: 'Estado', name: 'res_estado'},
+            {display: 'Faltan', name: 'dias'},
+            {display: 'Avance', name: 'avance'},
+            {display: 'Encargado', name: 'encargado'},
+            {display: 'Mail', name: 'usu_email'},
         ],
         sortname: "",
         sortorder: "asc",

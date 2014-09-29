@@ -17,9 +17,9 @@ define("PATH_LANG", "es");
 //define("PATH_WEB", "http://archivo-prueba.abc.gob.bo/web");
 
 /* * * Define Variables Globales server applications . * * */
-define("PATH_DOMAIN", "http://192.168.7.140/encuesta");
+define("PATH_DOMAIN", "http://localhost/encuesta");
 define("PATH_ROOT", $_SERVER ['DOCUMENT_ROOT'] . "/encuesta");
-define("PATH_WEB", "http://192.168.7.140/encuesta/web");
+define("PATH_WEB", "http://localhost/encuesta/web");
 
 define("PATH_FTPDIR_EXCEL", $_SERVER ['DOCUMENT_ROOT'] . "/archivo/web");
 

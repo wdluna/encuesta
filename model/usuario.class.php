@@ -119,10 +119,31 @@ class usuario extends tab_usuario {
         $user = $this->usuario->dbSelectBySQL($sql);
         $email = '';
         if (count($user) > 0) {
-            $nom = $user[0]->usu_email;
+            $email = $user[0]->usu_email;
         }
         return $email;
     }
+
+    function obtenerUnidad($usu_id) {
+        $unidad= "";
+        $sql = "SELECT
+                tab_usuario.usu_id,
+                tab_unidad.uni_codigo,
+                tab_unidad.uni_descripcion
+                FROM
+                tab_usuario 
+                Inner Join tab_unidad ON tab_unidad.uni_id = tab_usuario.uni_id
+                WHERE tab_usuario.usu_id =  '$usu_id'  ";
+        $row = "";
+        $row = $this->usuario->dbselectBySQL($sql);
+        if (count($row) > 0) {
+            $unidad = $row[0]->uni_descripcion;
+        } 
+        
+        return $unidad;
+        
+    }
+
     
     function getTipo($usu_id) {
         $this->rol = new tab_rol();
@@ -165,6 +186,8 @@ class usuario extends tab_usuario {
         }
         return $res;
     }
+    
+    
 
     function getRol($usu_id) {
         $rol_titulo = '';

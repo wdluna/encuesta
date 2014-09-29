@@ -44,38 +44,12 @@ class encuesta extends tab_encuesta {
 
     function obtenerSelectTodas($default = null) {
         $sql = "SELECT
-            DISTINCT(tab_encuesta.enc_id),
-            tab_encuesta.ser_orden,
-            tab_encuesta.enc_codigo,
-            f.fon_cod,
-            tab_unidad.uni_cod,
-            tab_tipocorr.tco_codigo,
-            tab_encuesta.enc_codigo,
-            tab_encuesta.enc_categoria
+                tab_encuesta.enc_id,
+                tab_encuesta.uni_id,
+                tab_encuesta.enc_codigo,
+                tab_encuesta.enc_categoria
                 FROM
-                tab_fondo as f
-                INNER JOIN tab_unidad ON f.fon_id = tab_unidad.fon_id
-                INNER JOIN tab_encuesta ON tab_unidad.uni_id = tab_encuesta.uni_id
-                INNER JOIN tab_tipocorr ON tab_tipocorr.tco_id = tab_encuesta.tco_id
-                INNER JOIN tab_respuesta ON tab_encuesta.enc_id = tab_respuesta.enc_id
-                INNER JOIN tab_exparchivo ON tab_respuesta.exp_id = tab_exparchivo.exp_id
-                INNER JOIN tab_archivo ON tab_archivo.fil_id = tab_exparchivo.fil_id
-                INNER JOIN tab_expisadg ON tab_respuesta.exp_id = tab_expisadg.exp_id
-                INNER JOIN tab_encusuario ON tab_respuesta.exp_id = tab_encusuario.exp_id
-                INNER JOIN tab_cuerpos ON tab_cuerpos.cue_id = tab_exparchivo.cue_id
-                INNER JOIN tab_tramitecuerpos ON tab_cuerpos.cue_id = tab_tramitecuerpos.cue_id
-                INNER JOIN tab_tramite ON tab_tramite.tra_id = tab_tramitecuerpos.tra_id
-                WHERE
-                f.fon_estado = 1 AND
-                tab_unidad.uni_estado = 1 AND
-                tab_tipocorr.tco_estado = 1 AND
-                tab_encuesta.enc_estado = 1 AND
-                tab_respuesta.exp_estado = 1 AND
-                tab_archivo.fil_estado = 1 AND
-                tab_exparchivo.exa_estado = 1 AND
-                tab_encusuario.eus_estado = 1
-                ORDER BY tab_encuesta.ser_orden,
-                tab_encuesta.enc_codigo ";
+                tab_encuesta ";
         $rows = $this->encuesta->dbSelectBySQL($sql);
         $option = '';
 
@@ -83,9 +57,9 @@ class encuesta extends tab_encuesta {
             foreach ($rows as $val) {
                 $spaces = $this->getSpaces($val->ser_nivel);
                 if ($default == $val->enc_id) {
-                    $option .="<option value='" . $val->enc_id . "' selected>" . $val->fon_cod . DELIMITER . $val->uni_cod . DELIMITER . $val->tco_codigo . DELIMITER . $val->enc_codigo . "  " . $val->enc_categoria . "</option>";
+                    $option .="<option value='" . $val->enc_id . "' selected>" . $val->enc_categoria . "</option>";
                 } else {
-                    $option .="<option value='" . $val->enc_id . "'>" . $val->fon_cod . DELIMITER . $val->uni_cod . DELIMITER . $val->tco_codigo . DELIMITER . $val->enc_codigo . "  " . $val->enc_categoria . "</option>";
+                    $option .="<option value='" . $val->enc_id . "'>" . $val->enc_categoria . "</option>";
                 }
             }
         }
@@ -197,6 +171,29 @@ class encuesta extends tab_encuesta {
         }
         return $nombre;
     }
+    
+    function obtenerEncuestaUsuario($usu_id) {
+        $nombre = '';
+        $encuesta = new tab_encuesta();
+        $sql = "SELECT
+                tab_encuesta.enc_id,
+                tab_usu_encuesta.usu_id,
+                tab_encuesta.enc_categoria,
+                tab_usu_encuesta.uen_estado
+                FROM
+                tab_encuesta
+                INNER JOIN tab_usu_encuesta ON tab_encuesta.enc_id = tab_usu_encuesta.enc_id                
+                WHERE tab_usu_encuesta.usu_id = '$usu_id' 
+                AND tab_usu_encuesta.uen_estado = '1' ";
+        $encuestas = $this->encuesta->dbselectBySQL($sql);
+        if (count($encuestas) > 0) {
+            foreach ($encuestas as $encuesta) {
+                $nombre = $encuesta->enc_categoria;
+            }
+        }
+        return $nombre;
+    }    
+    
     
     function obtenerSerieTramites($tra_id = null) {
         $add = "";
