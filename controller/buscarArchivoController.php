@@ -608,7 +608,7 @@ class buscarArchivoController extends baseController {
 //        aumentado
         $pdf->SetKeywords('DGGE, Sistema de Encuestas');
         // set default header data
-        $pdf->SetHeaderData('logo2.png', 20, 'ABC', 'Administradora Boliviana de Carreteras');
+        $pdf->SetHeaderData('logo2.png', 20, 'DGGE', 'Administradora Boliviana de Carreteras');
         // set header and footer fonts
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));

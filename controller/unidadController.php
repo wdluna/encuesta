@@ -656,7 +656,7 @@ class unidadController extends baseController {
         $pdf->SetTitle('Reporte encuesta');
         $pdf->SetSubject('Reporte encuesta');
         $pdf->SetKeywords('DGGE, DGGE, DGGE SRL');
-        $pdf->SetHeaderData('logo2.png', 20, 'ABC', 'ADMINISTRADORA BOLIVIANA DE CARRETERAS');
+        $pdf->SetHeaderData('logo2.png', 20, 'DGGE', 'ADMINISTRADORA BOLIVIANA DE CARRETERAS');
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
         // set default monospaced font
@@ -767,7 +767,7 @@ class unidadController extends baseController {
         $cadena .= '<table border="1">';
         $cadena .= '<tr></tr>';        
         $cadena .= '<tr bgcolor="' . $blanco . '">
-                        <td width="30">ABC</td>
+                        <td width="30">DGGE</td>
                         <td width="650" colspan="2">LISTADO DE SECCIONES Y SUBSECCIONES</td>
                     </tr>';
         $cadena .= '<tr align="center">
@@ -826,7 +826,7 @@ class unidadController extends baseController {
         $pdf->SetSubject('Reporte de Unidades');
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         $pdf->SetKeywords('DGGE, Sistema de Encuestas');
-        $pdf->SetHeaderData('logo2.png', 20, 'ABC', 'Administradora Boliviana de Carreteras');
+        $pdf->SetHeaderData('logo2.png', 20, 'DGGE', 'Administradora Boliviana de Carreteras');
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
         $pdf->SetMargins(10, 30, 10);

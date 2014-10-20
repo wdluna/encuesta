@@ -72,13 +72,13 @@ button:hover, .button:hover{
     width: 500px;
     /*DimGray*/
     background-color: #808080;
-    border-bottom: 10px solid #FBED00;
     margin-top: 100px;
 
 }
 #main .full_w{
     /*FireBrick*/
-    background: #B22222;
+    /*background: #B22222;*/
+    background: #B22222;    
     border: 1px solid #B22222;
     border-radius: 5px;
     -webkit-box-shadow:  2px 2px 10px 1px rgba(0, 0, 0, 1);
@@ -91,12 +91,13 @@ button:hover, .button:hover{
 #main .full_w .h_title{
     background: url(../img/bg_box_head.jpg) repeat-x;
     /*FireBrick*/
+    /*color: #B22222;*/
     color: #B22222;
     font-size: 11px;
     font-weight: normal;
     height: 22px;
     padding: 7px 0 0 15px;
-    text-shadow: #0E0E0E 0px 1px 1px;
+    /*text-shadow: #0E0E0E 0px 1px 1px;*/
 }
 #main img{
     margin-top:28px;
@@ -165,7 +166,7 @@ button:hover, .button:hover{
 }
 #main .footer{
     font-size: 14px;
-    color: #FBED00;
+    color: #FFFFFF;
     margin: 0 15px;
     text-align: center;
     /*text-shadow: 1px 1px 0px #ffffff;*/

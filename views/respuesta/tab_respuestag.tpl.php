@@ -30,40 +30,6 @@
 
 <script type="text/javascript">
     
-//    
-//    $("#flex1").flexigrid
-//    ({
-//        url: '<?php echo $PATH_DOMAIN ?>/respuesta/loadSerie/<?php echo $enc_id; ?>/',
-//        dataType: 'json',
-//        colModel: [
-//            {display: 'Id', name: 'enc_id', width: GetColumnSize(3), sortable: true, align: 'center'},
-//            {display: 'C&oacute;digo', name: 'enc_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},
-//            {display: 'Unidad', name: 'uni_descripcion', width: GetColumnSize(10), sortable: true, align: 'left'},
-//            {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(60), sortable: true, align: 'left'},
-//            {display: 'Fec. Pub.', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
-//            {display: 'Fec.Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
-//        ],  
-//        buttons: [
-//            {name: 'Seleccionar encuesta', bclass: 'save1', onpress: test}, 
-//        ],
-//        searchitems: [
-//            {display: 'Id', name: 'enc_id', isdefault: true},  
-//            {display: 'Unidad', name: 'uni_descripcion'},
-//            {display: 'Encuesta', name: 'enc_categoria'}
-//        ],
-//        sortname: "",
-//        sortorder: "asc",
-//        usepager: true,
-//        title: "LISTA DE ENCUESTAS HABILITADAS PARA EL USUARIO",
-//        useRp: true,
-//        rp: 5,
-//        minimize: <?php echo $GRID_SW ?>,
-//        showTableToggleBtn: true,
-//        width: "100%",
-//        height: 60,
-//        autoload: true
-//    });
-
     $("#flex2").flexigrid
     ({
         url: '<?php echo $PATH_DOMAIN ?>/respuesta/load/<?php echo $enc_id; ?>/',
@@ -71,27 +37,31 @@
         colModel: [
             {display: 'Id', name: 'res_id', width: GetColumnSize(3), sortable: true, align: 'center'},
 //            {display: 'C&oacute;digo', name: 'res_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},            
-            {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(25), sortable: true, align: 'left'},   
+            {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(35), sortable: true, align: 'left'},   
             {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(10), sortable: true, align: 'left'},  
             {display: 'Fec. Pub.', name: 'enc_fecpub', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Fec.Cierre', name: 'enc_feccie', width: GetColumnSize(10), sortable: true, align: 'left'},
             {display: 'Estado', name: 'res_estado', width: GetColumnSize(8), sortable: true, align: 'left'},            
-            {display: 'Faltan', name: 'dias', width: GetColumnSize(5), sortable: true, align: 'right'},
+            //{display: 'Faltan', name: 'dias', width: GetColumnSize(5), sortable: true, align: 'right'},
             {display: 'Avance (%)', name: 'avance', width: GetColumnSize(10), sortable: true, align: 'right'},
             {display: 'Encargado', name: 'encargado', width: GetColumnSize(15), sortable: true, align: 'left'},
-            {display: 'Tel.', name: 'usu_fono', width: GetColumnSize(10), sortable: true, align: 'left'},
-            {display: 'Mail', name: 'usu_email', width: GetColumnSize(35), sortable: true, align: 'left'}
+            //{display: 'Tel.', name: 'usu_fono', width: GetColumnSize(10), sortable: true, align: 'left'},
+            //{display: 'Mail', name: 'usu_email', width: GetColumnSize(35), sortable: true, align: 'left'}
         ],
         buttons: [
             <?php if ($total==0) { ?>            
             {name: 'Adicionar', bclass: 'add', onpress: test2},
+            <?php } ?>
+            <?php if ($rol=='ADM' || $rol=='ENC') { ?> 
+                {name: 'Abrir encuesta', bclass: 'edit', onpress: test2},
             <?php } ?>            
-            {name: 'Abrir encuesta', bclass: 'edit', onpress: test2},
             {separator: true},
             {name: 'Ver encuesta', bclass: 'pdf', onpress: test2}, 
-            {name: 'Cerrar encuesta', bclass: 'mail', onpress: test2},
-            <?php if (!$adm) { ?>            
-            <?php } ?>             
+            <?php if ($rol=='ADM' || $rol=='ENC') { ?> 
+                {name: 'Cerrar encuesta', bclass: 'mail', onpress: test2},
+            <?php } ?>            
+            
+            
             
         ],
         searchitems: [

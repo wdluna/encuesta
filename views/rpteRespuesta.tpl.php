@@ -31,11 +31,17 @@
             <td >Tipo Reporte: </td>
             <td>
                 <select name="tiporeporte" id="tiporeporte">
-                    <option value="1">Pie Chart</option>
-                    <option value="2">Barras Chart</option>
-                    <option value="3">Barras Horizontal</option>
-                    <option value="4">Barras Vertical</option>
-                    <option value="5">Excel</option>                     
+                    <option value="">(Seleccionar)</option>
+                    <option value="1">1. Pie Chart</option>
+                    <option value="2">2. Pie Chart, legend</option>
+                    <option value="3">3. Simple line graph</option>
+                    <option value="4">4. Bar chart</option>
+                    <option value="5">5. Bar chart, unshaded</option>                    
+                    <option value="6">6. Horizontal Bars</option>
+                    <option value="7">7. Horizontal Bars, unshaded</option>
+                    <option value="8">8. Horizontal thinbarline plot</option>                    
+                    <option value="9">9. Linepoints plot with Data Value Labels</option>
+                    <option value="10">10. Excel</option>                     
                 </select>
             </td>
         </tr>
@@ -96,7 +102,7 @@
                             });
                         }else{
                             $("#ecp_id").find("option").remove();
-                            $("#ecp_id").append("<option value=''>-No hay unidades-</option>");
+                            $("#ecp_id").append("<option value=''>-No hay preguntas-</option>");
                         }
                     }
                 });

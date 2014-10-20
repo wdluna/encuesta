@@ -286,17 +286,18 @@ class usuarioController Extends baseController {
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
                 $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
-                        . "<br><br>Se creo una cuenta de administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
+                        . "<br><br>Se creo una cuenta de administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificación"
                         . "<br>La direccion para administrar el sistema es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
                         . "<br>Usuario: " . $_REQUEST['usu_login']
                         . "<br>Password: " . $_REQUEST['usu_pass']
                         . "<br><br>Se adjunta Manual de Usuario del Sistema de Encuestas"
-                        . "<br>Gracias !");
-                
-            }else{
-                $mail->Subject = 'Cuenta de usuario para llenar la encuesta de ' . $nombreEncuesta . ". MINISTERIO DE PLANIFICACION DEL DESARROLLO - DGGE ";
+                        . "<br>Gracias !");                
+            }
+            
+            if ($_REQUEST['usu_rol_id'] == 2){                
+                $mail->Subject = 'Cuenta de usuario para llenar la encuesta de ' . $nombreEncuesta . ". MINISTERIO DE PLANIFICACI&Oacute;N DEL DESARROLLO - DGGE ";
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
                 $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
@@ -314,7 +315,22 @@ class usuarioController Extends baseController {
 
                 
             }
+            if ($_REQUEST['usu_rol_id'] == 3){                
+                $mail->Subject = 'Creacion de cuenta para analista del Sistema de Encuestas de la DGGE - Ministerio de Planificación del Desarrollo';
+                // Format HTML to send with load file
+//            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
+                $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
+                        . "<br><br>Se creo una cuenta de analista para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificación"
+                        . "<br>La direccion para realizar el analisis de los datos del sistema es la siguiente:"
+                        . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
+                        . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
+                        . "<br>Usuario: " . $_REQUEST['usu_login']
+                        . "<br>Password: " . $_REQUEST['usu_pass']
+//                        . "<br><br>Se adjunta Manual de Usuario del Sistema de Encuestas"
+                        . "<br>Gracias !");                
+            }
 
+            
             // Alternate for block
             $mail->AltBody = 'This is a plain-text message body';
             // Send mail
@@ -324,7 +340,8 @@ class usuarioController Extends baseController {
             } else {
               echo "Enviado!";
               Header("Location: " . PATH_DOMAIN . "/usuario/index/");
-            }        
+            }
+            
         } catch (phpmailerException $e) {
             // PhpMailer Error
             $result .= "<b class='red'>Error: PhpMailer.</b><br />".$e->errorMessage()."</b>";
@@ -526,7 +543,7 @@ class usuarioController Extends baseController {
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
                 $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
-                        . "<br><br>Se creo una cuenta de administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificacion"
+                        . "<br><br>Se creo una cuenta de administrador para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificación"
                         . "<br>La direccion para administrar el sistema es la siguiente:"
                         . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
                         . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
@@ -535,8 +552,9 @@ class usuarioController Extends baseController {
                         . "<br><br>Se adjunta Manual de Usuario del Sistema de Encuestas"
                         . "<br>Gracias !");
                 
-            }else{
-                $mail->Subject = 'Cuenta de usuario para llenar la encuesta de ' . $nombreEncuesta . ". MINISTERIO DE PLANIFICACION DEL DESARROLLO - DGGE ";
+            }
+            if ($_REQUEST['usu_rol_id'] == 2){                
+                $mail->Subject = 'Cuenta de usuario para llenar la encuesta de ' . $nombreEncuesta . ". MINISTERIO DE PLANIFICACI&Oacute;N DEL DESARROLLO - DGGE ";
                 // Format HTML to send with load file
 //            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
                 $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
@@ -554,6 +572,21 @@ class usuarioController Extends baseController {
 
                 
             }
+            if ($_REQUEST['usu_rol_id'] == 3){                
+                $mail->Subject = 'Creacion de cuenta para analista del Sistema de Encuestas de la DGGE - Ministerio de Planificación del Desarrollo';
+                // Format HTML to send with load file
+//            $mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
+                $mail->MsgHTML("<b>Estimad@ " . $nombre .":</b>"
+                        . "<br><br>Se creo una cuenta de analista para usted para el acceso al Sistema de Encuestas de la DGEE - Ministerio de Planificación"
+                        . "<br>La direccion para realizar el análisis de los datos del sistema es la siguiente:"
+                        . "<br><a href='" . PATH_DOMAIN . "'>" . PATH_DOMAIN . "</a>"                    
+                        . "<br><br>Puede usar las siguientes credenciales para el acceso:" 
+                        . "<br>Usuario: " . $_REQUEST['usu_login']
+                        . "<br>Password: " . $_REQUEST['usu_pass']
+//                        . "<br><br>Se adjunta Manual de Usuario del Sistema de Encuestas"
+                        . "<br>Gracias !");                
+            }
+            
 
             // Alternate for block
             $mail->AltBody = 'This is a plain-text message body';

@@ -5,7 +5,7 @@
         <meta name="language" content="es" />
         <meta name="robots" content="all" />
         <meta name="author" content="DGGE" />
-        <meta name="copyright" content="ABC" />
+        <meta name="copyright" content="DGGE" />
         <meta name="category" content="General" />
         <meta name="rating" content="General" />
         <meta name="keywords" content="abc,archivo,digital" />
@@ -100,7 +100,7 @@
                         <span class="color2 boldU">Salir</span></a>
 
                     <div align="right"><?php echo $_SESSION['DEP_NOMBRE'] . '/'. $_SESSION['UNI_DESCRIPCION']; ?></div>
-                    <div align="right">&Uacute;ltima sesi&oacute;n: <?php echo utf8_encode(strftime("%A %d de %B del %Y")); ?></div>
+                    <!--<div align="right">&Uacute;ltima sesi&oacute;n: <?php echo utf8_encode(strftime("%A %d de %B del %Y")); ?></div>-->
                 </span>
             </div>
             <div id="container">

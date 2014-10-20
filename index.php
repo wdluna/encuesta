@@ -1,5 +1,7 @@
 <?php
 
+
+
 /* * * error reporting on ** */
 error_reporting(E_ALL);
 

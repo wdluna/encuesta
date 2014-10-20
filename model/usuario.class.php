@@ -394,7 +394,31 @@ class usuario extends tab_usuario {
     }
 
 
+    function allencuestaSeleccionadoOption($idUsuario) {
+        $liMenu = "";
+        $sql = "SELECT
+                tab_encuesta.enc_id,
+                tab_encuesta.enc_codigo,
+                tab_encuesta.enc_categoria
+                FROM
+                tab_encuesta
+                INNER JOIN tab_usu_encuesta ON tab_usu_encuesta.enc_id = tab_encuesta.enc_id
+                WHERE tab_encuesta.enc_estado = '1'
+                AND tab_usu_encuesta.usu_id = '" . $idUsuario . "'
+                ORDER BY enc_codigo ";
+        $rows = $this->usuario->dbselectBySQL($sql);
+        foreach ($rows as $menus) {
+            $option = "";
+            if ($default == $menus->enc_id)
+                $option .="<option value='" . $menus->enc_id . "' selected>" . $menus->enc_categoria . "</option>";
+            else
+                $option .="<option value='" . $menus->enc_id . "'>" . $menus->enc_categoria . "</option>";
 
+        }
+        return $option;
+    }    
+
+    
     function listUsuarioJson() {
         $where = "";
         $default = $_POST ["uni_id"];

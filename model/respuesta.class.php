@@ -114,7 +114,11 @@ class respuesta extends tab_respuesta {
                     AND tab_respuesta.res_id =  '$res_id' ";
             $num = $this->respuesta->countBySQL($sql);
             if ($num > 0) {
-                return 'OK';
+                if ($_SESSION ["ROL_COD"] == "ADM"){
+                    return false;
+                }else{
+                    return 'OK';
+                }
             } else {
                 return false;
             }            

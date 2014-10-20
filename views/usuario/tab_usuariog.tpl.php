@@ -39,7 +39,7 @@
             {name: 'Editar', bclass: 'edit', onpress : test},
             {separator: true},            
             {name: 'Clonar', bclass: 'add', onpress : test},
-            {name: 'Reenviar correo', bclass: 'mail', onpress : test}
+            {name: 'Reenviar credenciales', bclass: 'mail', onpress : test}
         ],
         searchitems : [
             {display: 'Id', name : 'usu_id', isdefault: true},            
@@ -101,7 +101,7 @@
                 alert("Por favor, seleccione un registro");
             }
         }
-        else if (com=='Reenviar correo'){
+        else if (com=='Reenviar credenciales'){
             if($('.trSelected div',grid).html()){
                 
                 if(confirm('Se va a reenviar un correo al usuario elegido con sus credenciales de acceso. Desea continuar?')){                

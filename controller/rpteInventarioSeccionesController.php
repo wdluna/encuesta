@@ -54,7 +54,7 @@ class rpteInventarioSeccionesController Extends baseController {
             $pdf->SetSubject('Reporte de Inventario');
             $pdf->SetKeywords('DGGE, SAD');
             // set default header data
-            $pdf->SetHeaderData('logo2.png', 20, 'ABC', "");
+            $pdf->SetHeaderData('logo2.png', 20, 'DGGE', "");
             // set header and footer fonts
             $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 

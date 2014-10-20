@@ -5,7 +5,7 @@
         <meta name="language" content="es" />
         <meta name="robots" content="all" />
         <meta name="author" content="DGGE" />
-        <meta name="copyright" content="ABC" />
+        <meta name="copyright" content="DGGE" />
         <meta name="category" content="General" />
         <meta name="rating" content="General" />
         <meta name="keywords" content="abc,archivo,digital" />

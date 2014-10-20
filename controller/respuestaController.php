@@ -25,6 +25,8 @@ class respuestaController Extends baseController {
         $usuario = new usuario();
         $adm = $usuario->esAdm();
         $this->registry->template->adm = $adm;
+        $rol = $_SESSION ["ROL_COD"];
+        $this->registry->template->rol = $rol;
         
         // Answer count
         $respuesta = new respuesta();
@@ -46,121 +48,6 @@ class respuestaController Extends baseController {
         $this->registry->template->show('footer');
     }
 
-//    function loadSerie() {
-//
-//        $this->respuesta = new tab_respuesta ();
-//        $this->respuesta->setRequest2Object($_REQUEST);
-//
-//        $page = $_REQUEST ['page'];
-//        $rp = $_REQUEST ['rp'];
-//        $sortname = $_REQUEST ['sortname'];
-//        $sortorder = $_REQUEST ['sortorder'];
-//        if (!$sortname) {
-//            $sortname = " s.enc_codigo ";
-//        }
-//        if (!$sortorder)
-//            $sortorder = 'desc';
-//        $sort = "ORDER BY $sortname $sortorder";
-//        if (!$page)
-//            $page = 1;
-//        if (!$rp)
-//            $rp = 10;
-//        $start = (($page - 1) * $rp);
-//        $limit = "LIMIT $rp OFFSET $start ";
-//        $query = strtoupper(trim($_REQUEST ['query']));
-//        $qtype = $_REQUEST ['qtype'];
-//        $where = "";
-//
-//
-//        if ($query != "") {
-//            $_SESSION ["ENC_ID"] = null;
-//            if ($qtype == 'enc_id')
-//                $where .= " and s.enc_id = '$query' ";
-//            elseif ($qtype == 'enc_categoria')
-//                $where .= " and s.enc_categoria LIKE '%$query%' ";
-//            elseif ($qtype == 'uni_descripcion')
-//                $where .= " and tab_unidad.uni_descripcion LIKE '%$query%' ";
-//            else
-//                $where .= " and $qtype LIKE '%$query%' ";
-//        }else {
-//            // Serie
-//            if (VAR3) {
-//                $_SESSION ["ENC_ID"] = VAR3;
-//            }
-////            else{
-////                $_SESSION ["ENC_ID"] = null;
-////            }
-//        }
-//
-//        if ($_SESSION ["ENC_ID"])
-//            $where.=" AND s.enc_id='" . $_SESSION ['ENC_ID'] . "'";
-//
-//
-//        $usu_id = $_SESSION['USU_ID'];
-//        if ($_SESSION ["ROL_COD"] != 'ADM') {
-//            $where .= " AND tab_usu_encuesta.usu_id=$usu_id ";
-//        }
-//        $sql = "SELECT	distinct
-//                tab_unidad.uni_codigo,
-//                tab_unidad.uni_descripcion,
-//                s.enc_id,
-//                s.enc_par,
-//                s.enc_codigo,
-//                s.enc_categoria,
-//                s.enc_fecpub,
-//                s.enc_feccie
-//                FROM
-//                tab_encuesta AS s
-//                INNER JOIN tab_unidad ON tab_unidad.uni_id = s.uni_id
-//                INNER JOIN tab_usu_encuesta ON tab_usu_encuesta.enc_id = s.enc_id
-//                WHERE
-//                s.enc_estado = '1'
-//                AND tab_usu_encuesta.uen_estado = '1'
-//                $where
-//                $sort
-//                $limit ";
-//
-//        $result = $this->respuesta->dbSelectBySQL($sql);
-//        $total = $this->respuesta->countBySQL("SELECT COUNT (distinct s.enc_id)
-//                                            FROM
-//                                            tab_encuesta AS s
-//                                            INNER JOIN tab_unidad ON tab_unidad.uni_id = s.uni_id
-//                                            INNER JOIN tab_usu_encuesta ON tab_usu_encuesta.enc_id = s.enc_id
-//                                            WHERE
-//                                            s.enc_estado = '1'
-//                                            AND tab_usu_encuesta.uen_estado = '1'
-//                                            $where");
-//
-//        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-//        header("Cache-Control: no-cache, must-revalidate");
-//        header("Pragma: no-cache");
-//        header("Content-type: text/x-json");
-//        $json = "";
-//        $json .= "{\n";
-//        $json .= "page: $page,\n";
-//        $json .= "total: $total,\n";
-//        $json .= "rows: [";
-//        $rc = false;
-//        $i = 0;
-//        foreach ($result as $un) {
-//            if ($rc)
-//                $json .= ",";
-//            $json .= "\n{";
-//            $json .= "id:'" . $un->enc_id . "',";
-//            $json .= "cell:['" . $un->enc_id . "'";
-//            $json .= ",'" . addslashes($un->enc_codigo) . "'";
-//            $json .= ",'" . addslashes($un->uni_descripcion) . "'";
-//            $json .= ",'" . addslashes($un->enc_categoria) . "'";
-//            $json .= ",'" . addslashes($un->enc_fecpub) . "'";
-//            $json .= ",'" . addslashes($un->enc_feccie) . "'";
-//            $json .= "]}";
-//            $rc = true;
-//            $i++;
-//        }
-//        $json .= "]\n";
-//        $json .= "}";
-//        echo $json;
-//    }
 
     function load() {
 
@@ -234,39 +121,11 @@ class respuestaController Extends baseController {
             }
         }
 
-        if ($_SESSION ["ROL_COD"] != 'ADM') {
+        //if ($_SESSION ["ROL_COD"] == 'ADM' ) {
+        if ($_SESSION ["ROL_COD"] == 'ENC') {
             $where .= " AND tab_usuario.usu_id ='" . $_SESSION['USU_ID'] . "' ";
         } 
         
-//        $sql = "SELECT
-//        tab_respuesta.res_id,
-//        tab_unidad.uni_descripcion,
-//        tab_unidad.uni_codigo,
-//        tab_encuesta.enc_id,
-//        tab_encuesta.enc_par,
-//        tab_encuesta.enc_codigo,
-//        tab_encuesta.enc_categoria,
-//        tab_encuesta.enc_fecpub,
-//        tab_encuesta.enc_feccie,
-//        tab_respuesta.res_codigo,
-//        tab_respuesta.res_titulo,
-//        CASE WHEN tab_respuesta.res_estado=1 THEN 'ABIERTA' ELSE 'CERRADA' END as res_estado,
-//        tab_usuario.usu_id,
-//        tab_usuario.usu_nombres,
-//        tab_usuario.usu_apellidos
-//        FROM
-//        tab_usuario
-//        INNER JOIN tab_encusuario ON tab_usuario.usu_id = tab_encusuario.usu_id
-//        INNER JOIN tab_respuesta ON tab_encusuario.res_id = tab_respuesta.res_id
-//        INNER JOIN tab_encuesta ON tab_respuesta.enc_id = tab_encuesta.enc_id
-//        INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_encuesta.uni_id
-//        WHERE tab_unidad.uni_estado = 1
-//        AND tab_encuesta.enc_estado = 1
-//        AND (tab_respuesta.res_estado = 1 OR tab_respuesta.res_estado = 2)
-//        AND tab_encusuario.eus_estado = 1
-//        $where
-//        $sort
-//        $limit ";
         
         
         $sql = "SELECT
@@ -354,7 +213,7 @@ class respuestaController Extends baseController {
             $fechaactual = date("Y-m-d");
             $dias = (strtotime($un->enc_feccie)-strtotime($fechaactual))/86400;            
             $json .= ",'" . addslashes($un->res_estado) . "'";
-            $json .= ",'" . addslashes($dias) . " d." . "'";
+//            $json .= ",'" . addslashes($dias) . " d." . "'";
             
 //            if ($contador == 0){
 //                $json .= ",'<font color=#B22222>" . addslashes($contador) . " %" . "'";
@@ -363,8 +222,8 @@ class respuestaController Extends baseController {
 //            }
             
             $json .= ",'" . addslashes($un->usu_nombres . ' ' . $un->usu_apellidos) . "'";
-            $json .= ",'" . addslashes($un->usu_fono) . "'";
-            $json .= ",'" . addslashes($un->usu_email) . "'";
+//            $json .= ",'" . addslashes($un->usu_fono) . "'";
+//            $json .= ",'" . addslashes($un->usu_email) . "'";
             $json .= "]}";
             $rc = true;
             $i++;
@@ -850,7 +709,7 @@ class respuestaController Extends baseController {
 //        aumentado
         $pdf->SetKeywords('DGGE, Sistema de Encuestas');
         // set default header data
-        $pdf->SetHeaderData('logo.png', 20, 'MINISTERIO DE PLANIFICACION DEL DESARROLLO', 'Dirección General de Gobierno Electrónico');
+        $pdf->SetHeaderData('logo.png', 20, 'MINISTERIO DE PLANIFICACI&Oacute;N DEL DESARROLLO', 'Dirección General de Gobierno Electrónico');
         // set header and footer fonts
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
@@ -1004,7 +863,7 @@ class respuestaController Extends baseController {
 //        aumentado
         $pdf->SetKeywords('DGGE, Sistema de Encuestas');
         // set default header data
-        $pdf->SetHeaderData('logo.png', 20, 'MINISTERIO DE PLANIFICACION DEL DESARROLLO', 'DGGE');
+        $pdf->SetHeaderData('logo.png', 20, 'MINISTERIO DE PLANIFICACI&Oacute;N DEL DESARROLLO', 'DGGE');
         // set header and footer fonts
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));

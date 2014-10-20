@@ -1445,6 +1445,45 @@ class enccampo extends tab_enccampo {
     }
     
     
+    
+    function obtenerPregunta($ecp_id) {
+        
+        // Find Value
+        $sql = "SELECT
+            tab_enccampo.ecp_id,
+            tab_enccampo.ecp_eti
+            FROM
+            tab_enccampo
+            WHERE tab_enccampo.ecp_id = '$ecp_id'
+            AND tab_enccampo.ecp_estado = '1' ";
+        $this->enccampo = new tab_enccampolista();
+        $row = $this->enccampo->dbselectBySQL($sql);
+        if (isset($row)) {
+            foreach ($row as $val) {
+                return $val->ecp_eti;
+            }
+        }
+    }    
+    
+    
+    function obtenerNroEntidades($ecp_id) {
+        
+        // Find Value
+        $sql = "SELECT count(tab_rescampovalor.rcv_id) as contador
+                FROM
+                tab_enccampo
+                INNER JOIN tab_rescampovalor ON tab_enccampo.ecp_id = tab_rescampovalor.ecp_id
+                WHERE tab_enccampo.ecp_id = '$ecp_id'
+                AND tab_enccampo.ecp_estado = '1' ";
+        $this->enccampo = new tab_enccampolista();
+        $row = $this->enccampo->dbselectBySQL($sql);
+        if (isset($row)) {
+            foreach ($row as $val) {
+                return $val->contador;
+            }
+        }
+    } 
+    
 
 }
 
