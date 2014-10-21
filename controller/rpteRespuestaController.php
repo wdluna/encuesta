@@ -424,7 +424,7 @@ class rpteRespuestaController Extends baseController {
             // Body - Header
             $cadena .= '<tr bgcolor="#CCCCCC">';
             $cadena .= '<td width="5%" align="center"><span style="font-family: helvetica; font-size: 11px;font-weight: bold;">Nro.</span></td>';
-            $cadena .= '<td width="60%" align="left"><span style="font-family: helvetica; font-size: 11px;font-weight: bold;">Titulo</span></td>';
+            $cadena .= '<td width="60%" align="left"><span style="font-family: helvetica; font-size: 11px;font-weight: bold;">Titulo (Id.)</span></td>';
             $cadena .= '<td width="35%" align="left"><span style="font-family: helvetica; font-size: 11px;font-weight: bold;">Cantidad</span></td>';
             $cadena .= '</tr>';
 
@@ -806,8 +806,8 @@ class rpteRespuestaController Extends baseController {
                         tab_enccampo
                         INNER JOIN tab_rescampovalor ON tab_enccampo.ecp_id = tab_rescampovalor.ecp_id
                         WHERE tab_enccampo.ecp_id = $val->ecp_id
-                        ORDER BY tab_enccampo.egr_id,
-                        tab_enccampo.ecp_orden";                
+                        AND tab_rescampovalor.rcv_valor <> ''
+                        ORDER BY tab_rescampovalor.res_id ";                
                 $rescampovalor = new tab_rescampovalor();
                 $row5 = $rescampovalor->dbselectBySQL($sql);
                 
@@ -818,7 +818,7 @@ class rpteRespuestaController Extends baseController {
                         $j=0;
                         foreach ($row5 as $list) {
                             // Buscar id entidad
-                            $uni_id = $unidad->buscarIdUnidad($list->rcv_valor);
+                            $uni_id = $unidad->buscarIdUnidad($list->res_id);
                             if ($uni_id!=0) $conteo[] = array($uni_id, $list->rcv_valor);
                             //$suma += $list->rcv_valor;                             
                         }

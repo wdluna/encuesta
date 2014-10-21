@@ -652,6 +652,7 @@ class respuestaController Extends baseController {
         $where = "";
         $this->respuesta = new tab_respuesta();
         $sql = "SELECT
+                tab_unidad.uni_id,
                 tab_unidad.uni_descripcion,
                 tab_encuesta.enc_categoria,
                 tab_respuesta.res_id,
@@ -729,15 +730,18 @@ class respuestaController Extends baseController {
         $cadena .= '<table width="580" border="0" >';
         $cadena .= '<tr><td align="center">';
         $cadena .= '<span style="font-size: 30px;font-weight: bold;">';
-        $cadena .= 'ENCUESTA - SOFTWARE LIBRE';
+        $cadena .= 'SISTEMA GENERAL DE ENCUESTAS';
         $cadena .= '</span>';
         $cadena .= '</td></tr>';
         foreach ($result as $fila) {
-            $cadena .= '<tr><td align="left"><b>Datos de la instituci&oacute;n:</b> ' . "" . '</td></tr>';
-            $cadena .= '<tr><td align="left"><b>Id: </b>' . $fila->res_id . '</td></tr>';
-            $cadena .= '<tr><td align="left"><b>Unidad:</b> ' . $fila->uni_descripcion . '</td></tr>';
             $cadena .= '<tr><td align="left"><b>Encuesta:</b> ' . $fila->enc_categoria . '</td></tr>';
+            $cadena .= '<tr><td align="left"><b>Nro. respuesta: </b>' . $fila->res_id . '</td></tr>';
+            $cadena .= '<tr><td align="left"></td></tr>';
+            $cadena .= '<tr><td align="left"><b>Datos de la instituci&oacute;n:</b> ' . "" . '</td></tr>';            
+            $cadena .= '<tr><td align="left"><b>Id. Entidad:</b> ' . $fila->uni_id . '</td></tr>';
+            $cadena .= '<tr><td align="left"><b>Entidad:</b> ' . $fila->uni_descripcion . '</td></tr>';
             
+            $cadena .= '<tr><td align="left"></td></tr>';
             $cadena .= '<tr><td align="left"><b>Datos de la encuesta:</b> ' . "" . '</td></tr>';
             // Include dynamic fields
             $enccampo = new enccampo();

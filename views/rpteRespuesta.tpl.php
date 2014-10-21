@@ -4,7 +4,7 @@
 
     <table width="100%" border="0">
         <caption class="titulo">
-            RESPUESTAS - ENCUESTAS
+            GRÁFICOS ESTADÍSTICOS - ENCUESTAS
         </caption>
 
         <tr>

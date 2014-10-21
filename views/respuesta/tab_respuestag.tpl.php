@@ -35,7 +35,7 @@
         url: '<?php echo $PATH_DOMAIN ?>/respuesta/load/<?php echo $enc_id; ?>/',
         dataType: 'json',
         colModel: [
-            {display: 'Id', name: 'res_id', width: GetColumnSize(3), sortable: true, align: 'center'},
+            {display: 'Nro.', name: 'res_id', width: GetColumnSize(3), sortable: true, align: 'center'},
 //            {display: 'C&oacute;digo', name: 'res_codigo', width: GetColumnSize(7), sortable: true, align: 'left'},            
             {display: 'Entidad/Unidad', name: 'uni_descripcion', width: GetColumnSize(35), sortable: true, align: 'left'},   
             {display: 'Encuesta', name: 'enc_categoria', width: GetColumnSize(10), sortable: true, align: 'left'},  
@@ -80,7 +80,7 @@
         sortname: "",
         sortorder: "asc",
         usepager: true,
-        title: 'LISTA DE ENCUESTAS REGISTRADAS PARA EL USUARIO',
+        title: 'LISTA DE RESPUESTAS DE ENCUESTAS',
         useRp: true,
         rp: 15,
         minimize: <?php echo $GRID_SW ?>,
