@@ -4,6 +4,7 @@
 
 /* * * error reporting on ** */
 error_reporting(E_ALL);
+echo "nuevo";
 
 /* Establecer configuracion regional al espaniol */
 setlocale(LC_ALL, 'es_ES');
