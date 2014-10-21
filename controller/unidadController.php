@@ -35,8 +35,7 @@ class unidadController extends baseController {
         $sortname = $_REQUEST['sortname'];
         $sortorder = $_REQUEST['sortorder'];
         if (!$sortname){
-            $sortname = ' tab_fondo.fon_cod,
-                tem.uni_cod';
+            $sortname = ' tem.uni_codigo';
         }
         if (!$sortorder)
             $sortorder = 'desc';
@@ -54,16 +53,10 @@ class unidadController extends baseController {
             if ($query == 'Niveles') {
             } elseif ($qtype == 'uni_id') {
                 $where = " AND tem.uni_id = '$query' ";
-            } elseif ($qtype == 'ubi_id_cod') {
-                $where = " AND tem.ubi_id IN (SELECT ubi_id from tab_ubicacion WHERE ubi_codigo like '%$query%') ";
-            } elseif ($qtype == 'uni_piso_cod') {
-                $where = " AND tem.uni_piso IN (SELECT ubi_id from tab_ubicacion WHERE ubi_codigo like '%$query%') ";
             } elseif ($qtype == 'uni_par_cod') {
                 $where = " AND tem.uni_par IN (SELECT uni_id from tab_unidad WHERE uni_codigo like '%$query%') ";
             } elseif ($qtype == 'fondo') {
                 $where = " AND tem.unif_id IN (SELECT uni_id from tab_unidad WHERE uni_descripcion like '%$query%') ";
-            } elseif ($qtype == 'fon_cod') {
-                $where = " AND tem.fon_id IN (SELECT fon_id from tab_fondo WHERE fon_cod like '%$query%') ";
             } else {
                 $where = " AND $qtype like '%$query%' ";
             }
@@ -71,19 +64,12 @@ class unidadController extends baseController {
         
         $sql = "SELECT
                 tem.uni_id,
-                tab_fondo.fon_descripcion,
-                tab_fondo.fon_cod,
                 tem.uni_par,
                 tem.uni_codigo,
-                tem.uni_cod,                
                 tem.uni_descripcion,
-                (SELECT ubi_codigo from tab_ubicacion WHERE ubi_id=tem.ubi_id) AS ubi_id_cod,
-                (SELECT ubi_codigo from tab_ubicacion WHERE ubi_id=tem.uni_piso) AS uni_piso_cod,
                 (SELECT uni_descripcion from tab_unidad WHERE uni_id=tem.uni_par) AS uni_par_cod,
-                (SELECT fon_cod from tab_fondo WHERE fon_id=tem.fon_id) AS fon_cod,
                 tem.uni_contador 
                 FROM tab_unidad AS tem
-                INNER JOIN tab_fondo ON tab_fondo.fon_id = tem.fon_id
                 WHERE
                 tem.uni_estado = '1' 
                 $where
@@ -92,14 +78,14 @@ class unidadController extends baseController {
         $result = $this->unidad->dbselectBySQL($sql);
         $total = $this->unidad->countBySQL("SELECT COUNT(tem.uni_id) 
                                             FROM tab_unidad AS tem
-                                            INNER JOIN tab_fondo ON tab_fondo.fon_id = tem.fon_id
                                             WHERE
                                             tem.uni_estado = '1' 
                                             $where");
         
-        header ( "Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
-        header ( "Cache-Control: no-cache, must-revalidate" );
-        header ( "Pragma: no-cache" );
+        
+        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header("Cache-Control: no-cache, must-revalidate");
+        header("Pragma: no-cache");
         header("Content-type: text/x-json");
         $json = "";
         $json .= "{\n";
@@ -108,69 +94,16 @@ class unidadController extends baseController {
         $json .= "rows: [";
         $rc = false;
         $i = 0;
-        
-        $fon_descripciona = "";
-        $fon_descripcionn = "";
-        
         foreach ($result as $un) {
             if ($rc)
                 $json .= ",";
-            
-            // New
-            $fon_descripcionn = $un->fon_descripcion;
-            if ($fon_descripcionn != $fon_descripciona) {
-                $json .= "\n{";
-                $json .= "id:'" . $un->uni_id . "',";
-                $json .= "cell:[''";               
-                $json .= ",'<font color=#02a602>" . addslashes($un->fon_cod) . "'";                
-                $json .= ",'<font color=#02a602>" . addslashes(utf8_encode($un->fon_descripcion)) . "'";
-                $json .= ",'" . addslashes("") . "'";
-                $json .= ",'" . addslashes(utf8_encode("")) . "'";
-                $json .= ",'" . addslashes("") . "'";                
-                $json .= "]}"; 
-                
-                // List seccion
-                $rc = true;
-                if ($rc)
-                $json .= ",";
-                $json .= "\n{";
-                $json .= "id:'" . $un->uni_id . "',";
-                $json .= "cell:['" . $un->uni_id . "'";               
-                $json .= ",'" . addslashes($un->fon_cod . DELIMITER . $un->uni_cod) . "'";
-                
-                if ($un->uni_par=='-1'){
-                    $json .= ",'" . addslashes(utf8_encode($un->uni_descripcion)) . "'";
-                }else{
-                    $json .= ",'" . addslashes("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . utf8_encode($un->uni_descripcion)) . "'";
-                    //$json .= ",'" . addslashes("----- " . utf8_encode($un->uni_descripcion)) . "'";
-                }                        
-                $json .= ",'" . addslashes($un->uni_par_cod) . "'";
-                $json .= ",'" . addslashes(utf8_encode($un->fon_descripcion)) . "'";
-                $json .= ",'" . addslashes($un->uni_contador) . "'";
-                
-                $json .= "]}";                 
-                
-            }else{
-                
-                $json .= "\n{";
-                $json .= "id:'" . $un->uni_id . "',";
-                $json .= "cell:['" . $un->uni_id . "'";               
-                $json .= ",'" . addslashes($un->fon_cod . DELIMITER . $un->uni_cod) . "'";
-
-                if ($un->uni_par=='-1'){
-                    $json .= ",'" . addslashes(utf8_encode($un->uni_descripcion)) . "'";
-                }else{
-                    $json .= ",'" . addslashes("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . utf8_encode($un->uni_descripcion)) . "'";
-                    //$json .= ",'" . addslashes("----- " . utf8_encode($un->uni_descripcion)) . "'";
-                }                        
-                $json .= ",'" . addslashes($un->uni_par_cod) . "'";
-                $json .= ",'" . addslashes(utf8_encode($un->fon_descripcion)) . "'";
-                $json .= ",'" . addslashes($un->uni_contador) . "'";
-                
-                $json .= "]}";                
-            }    
-            
-            $fon_descripciona = $un->fon_descripcion;
+            $json .= "\n{";
+            $json .= "id:'" . $un->uni_id . "',";
+            $json .= "cell:['" . $un->uni_id . "'";
+            $json .= ",'" . addslashes($un->uni_codigo) . "'";
+            $json .= ",'" . addslashes($un->uni_descripcion) . "'";
+            $json .= ",'" . addslashes($un->uni_par_cod) . "'";
+            $json .= "]}";
             $rc = true;
             $i++;
         }
@@ -181,31 +114,25 @@ class unidadController extends baseController {
 
 
     function add() {
+
+        $this->registry->template->if_upd = 0;
+        $departamento = new departamento();        
+        $this->registry->template->dep_id = $departamento->obtenerSelect();
+        $unidad = new unidad();
+        $this->registry->template->uni_par = $unidad->obtenerSelect();
+
+        $this->registry->template->uni_post = "";
+        $this->registry->template->titulo = "NUEVA ENTIDAD";
+        $this->registry->template->uni_id = "";
+
+        $this->registry->template->uni_codigo = "";
+        $this->registry->template->uni_descripcion = "";
+        $this->registry->template->uni_tel = "";
+
         $this->menu = new menu ();
         $liMenu = $this->menu->imprimirMenu(VAR1, $_SESSION ['USU_ID']);
         $this->registry->template->men_titulo = $liMenu;
-
-        $ubi = new ubicacion();
-        $unidad = new unidad();
-        $fondo = new fondo();
-
-        $tipoarch = new tipoarch();
-
-        $this->registry->template->uni_post = "";
-        $this->registry->template->titulo = "NUEVA SECCI&Oacute;N";
-        $this->registry->template->uni_id = "";
-        $this->registry->template->if_upd = 0;
-        $this->registry->template->ubi_id = $ubi->obtenerSelect(0);
-        $this->registry->template->uni_piso = "";
-        $this->registry->template->uni_par = "";
-        $this->registry->template->fon_id = $fondo->obtenerSelectFondos();
-        $this->registry->template->uni_codigo = "";
-        $this->registry->template->uni_cod = "";
-        $this->registry->template->uni_descripcion = "";
-        $this->registry->template->uni_ml = "";
-        $this->registry->template->uni_tel = "";
-        $this->registry->template->tar_id = $tipoarch->obtenerSelect();
-
+        
         $this->registry->template->PATH_WEB = PATH_WEB;
         $this->registry->template->PATH_DOMAIN = PATH_DOMAIN;
         $this->registry->template->PATH_EVENT = "save";
@@ -218,70 +145,29 @@ class unidadController extends baseController {
 
     function save() {
         $this->unidad = new tab_unidad ();
-        $this->oficina = new tab_oficina ();
         
         if ($_REQUEST['uni_par']){            
             $this->unidad->setUni_id($_REQUEST['uni_id']);
-            $this->unidad->setUbi_id($_REQUEST['ubi_id']);
-            $this->unidad->setUni_piso($_REQUEST['uni_piso']);            
             $this->unidad->setUni_par($_REQUEST['uni_par']);
+            $this->unidad->setDep_id($_REQUEST['dep_id']);
             $this->unidad->setUni_descripcion($_REQUEST['uni_descripcion']);
-            $this->unidad->setFon_id($_REQUEST['fon_id']);           
             $this->unidad->setUni_estado(1);
             $this->unidad->setUni_codigo($_REQUEST['uni_codigo']);            
-            // Genera codigo
-            $codigo = $this->generaCodigo($_REQUEST['uni_par']);
-            $this->unidad->setUni_cod($codigo);
-            $this->unidad->setTar_id($_REQUEST['tar_id']);
-            $this->unidad->setUnif_id(1);
-            $this->unidad->setUni_parcont('0');            
-            $this->unidad->setUni_ml('0');
-            $this->unidad->setNiv_id(1);             
-            $this->unidad->setUni_contador('0');
-            $this->unidad->setUni_tel($_REQUEST['uni_tel']);
+            $this->unidad->setUni_tel(1); 
+            $this->unidad->setUni_contador(1);
             $uni_id = $this->unidad->insert2();
-
-            // Actualizar Siguiente Hijo del padre
-            $row2 = $this->unidad->dbselectByField("uni_id", $_REQUEST['uni_par']);
-            $row2 = $row2[0];            
-            $this->unidad->setUni_id($row2->uni_id);
-            $this->unidad->setUbi_id($row2->ubi_id);
-            $this->unidad->setUni_piso($row2->uni_piso);
-            $this->unidad->setUni_codigo($row2->uni_codigo);
-            $this->unidad->setUni_cod($row2->uni_cod);
-            $this->unidad->setUni_par($row2->uni_par);
-            $this->unidad->setUnif_id($row2->unif_id);
-            $this->unidad->setUni_parcont($row2->uni_parcont);  
-            $this->unidad->setUni_descripcion($row2->uni_descripcion);
-            $this->unidad->setFon_id($row2->fon_id);
-            $this->unidad->setTar_id($row2->tar_id);
-            $uni_contador = $row2->uni_contador+1;
-            $this->unidad->setUni_contador($uni_contador);                 
-            $this->unidad->setUni_ml(0);
-            $this->unidad->setNiv_id(1);             
-            $this->unidad->setUni_tel($row2->uni_tel);
-            $this->unidad->update();          
         }
         else{
             // No tiene padre
             $this->unidad->setUni_id($_REQUEST['uni_id']);
             $this->unidad->setUni_par('-1');
+            $this->unidad->setDep_id($_REQUEST['dep_id']);
             $this->unidad->setUni_codigo($_REQUEST['uni_codigo']);
             // Genera codigo
-            $codigo = $this->getCodigoPadre($_REQUEST['fon_id']);            
-            $this->unidad->setUni_cod($codigo . DELIMITER . "0");            
             $this->unidad->setUni_descripcion($_REQUEST['uni_descripcion']);
-            $this->unidad->setFon_id($_REQUEST['fon_id']);
-            $this->unidad->setTar_id($_REQUEST['tar_id']);            
             $this->unidad->setUni_estado(1);
-            $this->unidad->setUni_contador('0');
-            $this->unidad->setUnif_id(1);
-            $this->unidad->setUni_parcont('0');            
-            $this->unidad->setUni_ml('0');
-            $this->unidad->setNiv_id(1); 
-            $this->unidad->setUbi_id($_REQUEST['ubi_id']);
-            $this->unidad->setUni_piso($_REQUEST['uni_piso']); 
-            $this->unidad->setUni_tel($_REQUEST['uni_tel']); 
+            $this->unidad->setUni_tel(1); 
+            $this->unidad->setUni_contador(1);
             $uni_id = $this->unidad->insert2();
         }
         Header("Location: " . PATH_DOMAIN . "/unidad/");
@@ -299,8 +185,6 @@ class unidadController extends baseController {
             die("Error del sistema 404");
         }
         
-        $fondo = new fondo();
-        $tipoarch = new tipoarch();
         $this->unidad = new tab_unidad ();
         if (VAR3 == null) {
             header("Location: " . PATH_DOMAIN . "/unidad/");
@@ -310,16 +194,14 @@ class unidadController extends baseController {
             header("Location: " . PATH_DOMAIN . "/unidad/");
         }
         $row = $row [0];
-        $ubicacion = new ubicacion();
         $unidad = new unidad();
-        $this->registry->template->uni_post = " + '&uni_id=$row->uni_id'";
-        $this->registry->template->titulo = "EDITAR SECCI&Oacute;N: $row->uni_descripcion";
-        $this->registry->template->uni_id = $row->uni_id;
-        $this->registry->template->fon_id = $fondo->obtenerSelectFondos($row->fon_id);
-        $this->registry->template->tar_id = $tipoarch->obtenerSelect($row->tar_id);
         
-        $this->registry->template->ubi_id = $ubicacion->obtenerSelect(0, $row->ubi_id);
-        $this->registry->template->uni_piso = $ubicacion->obtenerSelect($row->ubi_id, $row->uni_piso);
+        $departamento = new departamento();        
+        $this->registry->template->dep_id = $departamento->obtenerSelect($row->dep_id);
+        $this->registry->template->uni_post = " + '&uni_id=$row->uni_id'";
+        $this->registry->template->titulo = "EDITAR ENTIDAD: $row->uni_descripcion";
+        $this->registry->template->uni_id = $row->uni_id;
+        
         if ($row->uni_par > 0) {
             $uni_par = $unidad->obtenerSelectUnidades($row->uni_par);
             $this->registry->template->uni_par = $uni_par;
@@ -328,9 +210,7 @@ class unidadController extends baseController {
         }        
         
         $this->registry->template->uni_codigo = $row->uni_codigo;
-        $this->registry->template->uni_cod = $row->uni_cod;
         $this->registry->template->uni_descripcion = utf8_encode($row->uni_descripcion);
-        $this->registry->template->uni_ml = $row->uni_ml;
         $this->registry->template->uni_tel = $row->uni_tel;
         
         $this->menu = new menu ();
@@ -355,22 +235,15 @@ class unidadController extends baseController {
         $row = $this->unidad->dbselectByField("uni_id", $_REQUEST['uni_id']);
         $this->unidad->setUni_id($_REQUEST['uni_id']);
         
-        // C&oacute;digo antiguo
-        $this->unidad->setUbi_id($_REQUEST['ubi_id']);
-        $this->unidad->setUni_piso($_REQUEST['uni_piso']);
         if ($_REQUEST['uni_par']){
             $this->unidad->setUni_par($_REQUEST['uni_par']);
             // Genera codigo
             $codigo = $this->generaCodigo($_REQUEST['uni_par']);
-            $this->unidad->setUni_cod($_REQUEST['uni_cod']);            
         }else{
             $this->unidad->setUni_par('-1');
-            $this->unidad->setUni_cod($_REQUEST['uni_cod'] . DELIMITER . "0");             
         }
         $this->unidad->setUni_codigo($_REQUEST['uni_codigo']);
         $this->unidad->setUni_descripcion($_REQUEST['uni_descripcion']);
-        $this->unidad->setFon_id($_REQUEST['fon_id']);
-        $this->unidad->setTar_id($_REQUEST['tar_id']);
         $this->unidad->setUni_tel($_REQUEST['uni_tel']);
         $this->unidad->update();
 

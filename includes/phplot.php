@@ -407,6 +407,10 @@ class PHPlot
      */
     protected function initialize($imagecreate_function, $width, $height, $output_file, $input_file)
     {
+        /* Establecer configuracion regional al espaniol */
+        setlocale(LC_ALL, 'es_ES');
+        
+
         $this->SetRGBArray('small');
 
         if (isset($output_file) && $output_file !== '')

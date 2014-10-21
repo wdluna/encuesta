@@ -5,7 +5,7 @@
 /* * * error reporting on ** */
 error_reporting(E_ALL);
 
-/* Establecer configuraci&oacute;n regional al espaniol */
+/* Establecer configuracion regional al espaniol */
 setlocale(LC_ALL, 'es_ES');
         
 /* * * define the site path ** */

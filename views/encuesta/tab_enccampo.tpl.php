@@ -18,7 +18,7 @@
     <table width="100%" border="0">
         <caption class="titulo"><?php echo $titulo ?></caption>
         <tr>
-            <td>Serie:</td>
+            <td>Encuesta:</td>
             <td colspan=2><?php echo $enc_categoria; ?></td>
         </tr>
 
@@ -50,10 +50,29 @@
         </tr>
         
         <tr>
-            <td width="175">Etiqueta:</td>
-            <td colspan="2"><input name="ecp_eti" type="text" id="ecp_eti"
-                                   value="<?php echo $ecp_eti; ?>" size="80" autocomplete="off"
-                                   class="required alphanum" maxlength="1024" title="Orden" /></td>
+            <td width="175">Pregunta:</td>
+            <td colspan="2">
+                            <input name="ecp_eti" 
+                                   type="text" 
+                                   id="ecp_eti"
+                                   value="<?php echo $ecp_eti; ?>" 
+                                   size="150" 
+                                   autocomplete="off"
+                                   class="required" 
+                                   maxlength="1024" 
+                                   title="Orden" /></td>
+            
+            
+<!--                            <textarea name="ecp_eti"
+                                      id="ecp_eti"
+                                      rows='4' 
+                                      cols='120'                          
+                                      value="<?php //echo $ecp_eti; ?>" 
+                                      autocomplete='off'
+                                      class='required'
+                                      maxlength='10024'
+                                      title="Pregunta de la Encuesta" >
+                            </textarea>            -->
         </tr>
 
         
@@ -80,7 +99,7 @@
 
     jQuery(document).ready(function($) {
         $("#cancelar").click(function(){
-            window.location="<?php echo $PATH_DOMAIN ?>/enccampo/index/<?php echo VAR3; ?>/";
+            window.location="<?php echo $PATH_DOMAIN ?>/enccampo/index/<?php echo $enc_id; ?>/";
         });
     });
 

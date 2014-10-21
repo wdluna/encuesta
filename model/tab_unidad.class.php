@@ -27,7 +27,7 @@ class Tab_unidad extends db {
     var $uni_contador;
     var $uni_cod;    
     var $uni_tel;
-    
+    var $dep_id;
     
     // New
     var $ofi_id;
@@ -46,6 +46,15 @@ class Tab_unidad extends db {
         $this->uni_id = $uni_id;
     }
 
+    function getDep_id() {
+        return $this->dep_id;
+    }
+
+    function setDep_id($dep_id) {
+        $this->dep_id = $dep_id;
+    }
+
+    
     function getNiv_id() {
         return $this->niv_id;
     }

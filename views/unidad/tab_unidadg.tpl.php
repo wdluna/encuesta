@@ -29,28 +29,23 @@
         dataType: 'json',
         colModel: [
             {display: 'Id', name: 'uni_id', width: GetColumnSize(5), sortable: true, align: 'center'},
-            {display: 'C&oacute;digo', name: 'uni_cod', width: GetColumnSize(10), sortable: true, align: 'left'},
-            {display: 'Nombre Secci&oacute;n o Subsecci&oacute;n', name: 'uni_descripcion', width: GetColumnSize(40), sortable: true, align: 'left'},
-            {display: 'Subsecci&oacute;n de', name: 'uni_par_cod', width: GetColumnSize(25), sortable: true, align: 'left'},
-            {display: 'Fondo o Subfondo', name: 'fon_descripcion', width: GetColumnSize(15), sortable: true, align: 'left'},
-            {display: 'Contador', name: 'uni_contador', width: GetColumnSize(5), sortable: true, align: 'left'}
+            {display: 'C&oacute;digo', name: 'uni_codigo', width: GetColumnSize(10), sortable: true, align: 'left'},
+            {display: 'Nombre Entidad', name: 'uni_descripcion', width: GetColumnSize(60), sortable: true, align: 'left'},
+            {display: 'Depende de', name: 'uni_par_cod', width: GetColumnSize(25), sortable: true, align: 'left'}
         ],
         buttons: [
             {name: 'Adicionar', bclass: 'add', onpress: test}, 
             {name: 'Eliminar', bclass: 'delete', onpress: test}, 
             {name: 'Editar', bclass: 'edit', onpress: test},{separator: true},
-            {name: 'Imprimir cuadro clasificacion', bclass: 'pdf', onpress: test}, 
-            {name: 'Imprimir cuadro clasificacion Excel', bclass: 'page_excel', onpress: test}, 
         ],
         searchitems: [
             {display: 'Id', name: 'uni_id'},
-            {display: 'Fondo o Subfondo', name: 'fon_descripcion'},
-            {display: 'Secci&oacute;n o Subsecci&oacute;n', name: 'uni_descripcion'},
+            {display: 'Unidad', name: 'uni_descripcion'},
         ],
         sortname: "",
         sortorder: "asc",
         usepager: true,
-        title: 'LISTA DE SECCIONES O SUBSECCIONES',
+        title: 'LISTA DE ENTIDADES',
         useRp: true,
         rp: 15,
         minimize: <?php echo $GRID_SW ?>,

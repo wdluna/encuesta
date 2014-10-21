@@ -133,8 +133,8 @@
         <div id="wrapper">
             <div id="header">
                 <a href="<?php echo $PATH_DOMAIN; ?>" class="logo">SISTEMA DE ENCUESTAS</a>
-                <a href="<?php echo $PATH_DOMAIN; ?>" class="logot bold2">SISTEMA DE ENCUESTAS<br>Dirección General de Gobierno Electrónico</a> <span
-                    class="user">Bienvenid@ <?php echo $_SESSION['USU_NOMBRES']; ?> <?php echo $_SESSION['USU_APELLIDOS']; ?>|                    
+                <a href="<?php echo $PATH_DOMAIN; ?>/encuesta/respuesta/" class="logot bold2">SISTEMA DE ENCUESTAS<br>Dirección General de Gobierno Electrónico</a> 
+                <span class="user">Bienvenid@ <?php echo $_SESSION['USU_NOMBRES']; ?> <?php echo $_SESSION['USU_APELLIDOS']; ?>|                    
                     <?php echo $_SESSION['ROL']; ?>| 
                     <a href="<?php echo $PATH_DOMAIN; ?>/perfil/view/" title="Configuracion de perfil">
                         <span class="color2 boldU">Configuraci&oacute;n</span></a> | 
@@ -142,7 +142,7 @@
                         <span class="color2 boldU">Salir</span></a>
 
                     <div align="right"><?php echo $_SESSION['DEP_NOMBRE'] . '/'. $_SESSION['UNI_DESCRIPCION']; ?></div>
-                    <!--<div align="right">&Uacute;ltima sesi&oacute;n: <?php setlocale(LC_ALL,"es_ES"); echo strftime("%A %d de %B del %Y"); ?></div>-->
+                    <!--<div align="right">&Uacute;ltima sesi&oacute;n: <?php //setlocale(LC_ALL,"es_ES"); echo strftime("%A %d de %B del %Y"); ?></div>-->
                 </span>
             </div>
             <div id="container">

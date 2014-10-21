@@ -52,19 +52,15 @@ class unidad extends Tab_unidad {
     function obtenerSelectUnidades($default = null) {
         $option = "";
         $sql = "SELECT
-                tab_fondo.fon_cod,
-                tab_fondo.fon_descripcion,
                 tab_unidad.uni_id,
                 tab_unidad.uni_codigo,
                 tab_unidad.uni_descripcion,
                 tab_unidad.uni_par
                 FROM
                 tab_unidad
-                INNER JOIN tab_fondo ON tab_fondo.fon_id = tab_unidad.fon_id
                 WHERE
                 tab_unidad.uni_estado = 1
-                ORDER BY tab_fondo.fon_cod,
-                tab_unidad.uni_codigo  ";
+                ORDER BY tab_unidad.uni_codigo  ";
         $rows = $this->unidad->dbSelectBySQL($sql);        
         if (count($rows) > 0) {
             foreach ($rows as $unidad) {
@@ -218,6 +214,27 @@ class unidad extends Tab_unidad {
         return $option;
     }
 
+    function buscarIdUnidad($res_id = null) {
+        $sql = "SELECT
+                tab_unidad.uni_id,
+                tab_unidad.uni_descripcion,
+                tab_encusuario.res_id
+                FROM
+                tab_encuesta
+                INNER JOIN tab_respuesta ON tab_encuesta.enc_id = tab_respuesta.enc_id
+                INNER JOIN tab_encusuario ON tab_respuesta.res_id = tab_encusuario.res_id
+                INNER JOIN tab_usuario ON tab_usuario.usu_id = tab_encusuario.usu_id
+                INNER JOIN tab_unidad ON tab_unidad.uni_id = tab_usuario.uni_id
+                WHERE tab_encusuario.res_id = '$res_id'
+                ORDER BY tab_unidad.uni_id ";
+        $row = $this->unidad->dbselectBySQL($sql);
+        $uni_id = 0;
+        foreach ($row as $val) {
+            $uni_id = $val->uni_id;
+        }
+        return $uni_id;
+    }    
+    
     function getTitle($id) {
         $row = $this->unidad->dbselectBySQL("select * from tab_unidad where uni_id = $id");
         $option = "";

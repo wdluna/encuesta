@@ -35,6 +35,10 @@ class rpteRespuestaController Extends baseController {
     }
 
     function verRpte() {
+        
+        /* Establecer configuracion regional al espaniol */
+        setlocale(LC_ALL, 'es_ES');
+
         $where = "";
         $enc_id = $_POST['enc_id'];
         $ecp_id = $_POST['ecp_id'];        
@@ -55,7 +59,7 @@ class rpteRespuestaController Extends baseController {
             
             # PHPlot Example: Pie Chart Label Types - Data array
             # This is used by several examples. The data is 'altered' for appearance.
-            $title = "ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades";
+            $title = utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
 
             function mycallback($str)
             {
@@ -87,7 +91,7 @@ class rpteRespuestaController Extends baseController {
             
             # PHPlot Example: Pie Chart Label Types - Data array
             # This is used by several examples. The data is 'altered' for appearance.
-            $title = "ENCUESTA - SOFTWARE LIBRE\nPregunta: ". $pregunta . "\nMuestra: " . $muestra . " entidades";
+            $title = utf8_decode("ENCUESTA - SOFTWARE LIBRE\nPregunta: ". $pregunta . "\nMuestra: " . $muestra . " entidades");
 
             $plot = new PHPlot(1400, 1000);
             $plot->SetImageBorderType('plain');
@@ -129,7 +133,7 @@ class rpteRespuestaController Extends baseController {
             
             # PHPlot Example: Pie Chart Label Types - Data array
             # This is used by several examples. The data is 'altered' for appearance.
-            $title = "ENCUESTA - SOFTWARE LIBRE\nPregunta: ". $pregunta . "\nMuestra: " . $muestra . " entidades";
+            $title = utf8_decode("ENCUESTA - SOFTWARE LIBRE\nPregunta: ". $pregunta . "\nMuestra: " . $muestra . " entidades");
 
             $plot = new PHPlot(1200, 1000);
             $plot->SetImageBorderType('plain');
@@ -161,7 +165,7 @@ class rpteRespuestaController Extends baseController {
             
             # PHPlot Example: Pie Chart Label Types - Data array
             # This is used by several examples. The data is 'altered' for appearance.
-            $title = "ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades";
+            $title = utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
 
             $plot = new PHPlot(1200, 800);
             $plot->SetImageBorderType('plain');
@@ -210,7 +214,7 @@ class rpteRespuestaController Extends baseController {
             
             # PHPlot Example: Pie Chart Label Types - Data array
             # This is used by several examples. The data is 'altered' for appearance.
-            $title = "ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades";
+            $title = utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
 
             $plot = new PHPlot(1200, 800);
             $plot->SetImageBorderType('plain');
@@ -230,7 +234,7 @@ class rpteRespuestaController Extends baseController {
             $plot->SetDataValues($data);
 
             # Main plot title:
-            $plot->SetTitle("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
+            $plot->SetTitle(utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades"));
             # Y Axis title:
             $plot->SetYTitle('Cantidad');
             $plot->SetXTitle('Sistema'); // 
@@ -263,7 +267,7 @@ class rpteRespuestaController Extends baseController {
 
             $plot = new PHPlot(1200, 800);
             $plot->SetImageBorderType('plain'); // Improves presentation in the manual
-            $plot->SetTitle("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
+            $plot->SetTitle(utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades"));
             $plot->SetXTitle('Cantidad'); // 
             $plot->SetYTitle('Sistema'); // 
             $plot->SetBackgroundColor('white');
@@ -305,7 +309,7 @@ class rpteRespuestaController Extends baseController {
 
             $plot = new PHPlot(1200, 800);
             $plot->SetImageBorderType('plain'); // Improves presentation in the manual
-            $plot->SetTitle("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
+            $plot->SetTitle(utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades"));
             $plot->SetXTitle('Cantidad'); // 
             $plot->SetYTitle('Sistema'); // 
             $plot->SetBackgroundColor('white');
@@ -347,7 +351,7 @@ class rpteRespuestaController Extends baseController {
             $plot = new PHPlot(1000, 800);
             $plot->SetImageBorderType('plain'); // Improves presentation in the manual
             $plot->SetUseTTF(True);
-            $plot->SetTitle("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
+            $plot->SetTitle(utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades"));
             $plot->SetXTitle('Cantidad'); // 179=superscript 3
             $plot->SetYTitle('Software'); // 176=degrees
             $plot->SetPlotType('thinbarline');
@@ -377,7 +381,7 @@ class rpteRespuestaController Extends baseController {
             $plot->SetPlotType('linepoints');
             $plot->SetDataType('text-data');
             $plot->SetDataValues($data);
-            $plot->SetTitle("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades");
+            $plot->SetTitle(utf8_decode("ENCUESTA - SOFTWARE LIBRE\n". $pregunta . "\nMuestra: " . $muestra . " entidades"));
             
             # Turn on Y data labels:
             $plot->SetYDataLabelPos('plotin');
@@ -408,7 +412,7 @@ class rpteRespuestaController Extends baseController {
             $cadena .= '</td></tr>';
             $cadena .= '<tr><td colspan= "3" align="left">';
             $cadena .= '<span style="font-size: 30px;font-weight: bold;">';
-            $cadena .= "Pregunta: " . $pregunta;
+            $cadena .= "Pregunta: " . utf8_decode($pregunta);
             $cadena .= '</span>';
             $cadena .= '</td></tr>';            
             $cadena .= '<tr><td colspan= "3" align="left">';
@@ -440,16 +444,6 @@ class rpteRespuestaController Extends baseController {
                 $i++;                     
             }            
             
-//            foreach($options as $option => $conteo){                
-//                // Data
-//                $cadena .= '<tr bgcolor="FFFFFF">';
-//                $cadena .= '<td width="5%" align="center"><span style="font-family: helvetica; font-size: 11px;">' . $i . '</span></td>';
-//                $cadena .= '<td width="60%" align="left"><span style="font-family: helvetica; font-size: 11px;">' . $option . '</span></td>';
-//                $cadena .= '<td width="35%" align="left"><span style="font-family: helvetica; font-size: 11px;">' . $conteo . '</span></td>';
-//                $cadena .= '</tr>';
-//                $i++;                
-//            }            
-            
             $cadena .= '</table>'; 
             
             // Excel
@@ -464,7 +458,6 @@ class rpteRespuestaController Extends baseController {
         if ($tiporeporte == 10) {
             echo $cadena;
         }else{
-//            Header("Location: " . PATH_DOMAIN . "/imagen.html");            
             $this->registry->template->imagen = $imagen;
             $this->registry->template->show('imagen.tpl');            
         }      
@@ -477,9 +470,7 @@ class rpteRespuestaController Extends baseController {
         
         $enccampo = new tab_enccampo ();
         $enccampolista = new tab_enccampolista ();
-        
-        //$this->enccampolista = new tab_enccampolista();
-        
+                
         $sql = "SELECT
                 tab_enccampo.ecp_id,
                 tab_enccampo.enc_id,
@@ -820,14 +811,20 @@ class rpteRespuestaController Extends baseController {
                 $rescampovalor = new tab_rescampovalor();
                 $row5 = $rescampovalor->dbselectBySQL($sql);
                 
+                //
+                $unidad = new unidad ();
                 if ($val->ecp_tipdat == 'Numero' || $val->ecp_tipdat == 'Decimal') {
                     if ($row5){                    
                         $j=0;
                         foreach ($row5 as $list) {
-                            $suma += $list->rcv_valor;                             
+                            // Buscar id entidad
+                            $uni_id = $unidad->buscarIdUnidad($list->rcv_valor);
+                            if ($uni_id!=0) $conteo[] = array($uni_id, $list->rcv_valor);
+                            //$suma += $list->rcv_valor;                             
                         }
 //                        $conteo["Total "] = $suma;
-                        $conteo[] = array("Suma total", $suma);
+                        
+                        
                     }                    
                 }else{
                     if ($row5){                    
